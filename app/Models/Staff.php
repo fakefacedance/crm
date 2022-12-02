@@ -32,4 +32,21 @@ class Staff extends Authenticatable
     protected $hidden = [
         'password',        
     ];
+
+    public function deals()
+    {
+        return $this->hasMany(Deal::class);
+    }
+
+    // returns tasks that an employee assigned
+    public function tasksAssignedBy()
+    {
+        return $this->hasMany(Task::class, 'assigner_id');
+    }
+
+    // returns tasks assigned to an employee
+    public function tasksAssignedTo()
+    {
+        return $this->hasMany(Task::class, 'executor_id');
+    }
 }
