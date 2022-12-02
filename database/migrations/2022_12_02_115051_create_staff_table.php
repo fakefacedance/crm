@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('full_name');
             $table->string('position');
             $table->string('email');
-            $table->char('phone_number', 12);
+            $table->char('phone_number', 17);
             $table->string('password');            
             $table->dateTime('created_at');
         });

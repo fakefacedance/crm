@@ -9,7 +9,7 @@ use Spatie\Permission\Traits\HasRoles;
 class Staff extends Authenticatable
 {
     use HasFactory, HasRoles;
-
+    
     public $timestamps = false;
     /**
      * The attributes that are mass assignable.
@@ -22,6 +22,7 @@ class Staff extends Authenticatable
         'email',
         'phone_number',
         'password',
+        'created_at',
     ];
 
     /**
