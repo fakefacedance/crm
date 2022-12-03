@@ -46,8 +46,8 @@ class RolesAndPermissionsSeeder extends Seeder
             'move deal by funnels' => [  $admin,  $manager  ],
         ];
 
-        foreach ($permissions as $permission_key => $roles) {
-            $permission = Permission::create(['name' => $permission_key]);               
+        foreach ($permissions as $permissionKey => $roles) {
+            $permission = Permission::create(['name' => $permissionKey]);               
             foreach ($roles as $role) {                 
                 $role->givePermissionTo($permission);
             }

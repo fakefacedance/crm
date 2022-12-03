@@ -19,11 +19,11 @@ class CreateAdminSeeder extends Seeder
     {
         $admin = Staff::create([
             'full_name' => 'Пупкин Василий Админович',
-            'position' => 'gigachad',
+            'position' => 'Администратор',
             'email' => 'admin@test.com',
-            'phone_number' => '89001234567',
+            'phone_number' => '+7 900 123-45-67',
             'password' => Hash::make('admin'),
-            'created_at' => Carbon::now(),            
+            'created_at' => '2012-12-20 12:20:12',            
         ]);
 
         $admin->assignRole('admin');

@@ -22,7 +22,7 @@ return new class extends Migration
             $table->foreignId('funnel_id');
             $table->tinyInteger('stage');
             $table->dateTime('created_at');
-            $table->dateTime('closed_at');            
+            $table->dateTime('closed_at')->nullable();            
         });
     }
 

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('full_name');
             $table->string('email')->nullable();
-            $table->char('phone_number', 12);
+            $table->char('phone_number', 17);
             $table->dateTime('created_at');
         });
     }

@@ -17,6 +17,12 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RolesAndPermissionsSeeder::class,
             CreateAdminSeeder::class,
+            StaffSeeder::class,
+            ClientsSeeder::class,
+            DefaultFunnelSeeder::class,
+            DealsSeeder::class,
+            TasksSeeder::class,
+            CustomFieldsSeeder::class,
         ]);
     }
 }
