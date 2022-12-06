@@ -1,7 +1,9 @@
 <?php
 
-use App\Http\Controllers\ClientsController;
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Client;
+use App\Models\Staff;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,6 +33,13 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-Route::view('/contacts', 'contacts');
+Route::get('/contacts', function () {
+    return view('contacts', [
+        'clients' => Client::orderBy('full_name')->paginate(12),
+        'staff' => Staff::orderBy('full_name')->paginate(12)        
+    ]);
+})->name('contacts');
 
-//Route::resource('clients', ClientsController::class);
+Route::resource('clients', ClientController::class)->except([
+    'index'
+]);
