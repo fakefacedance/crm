@@ -3,15 +3,13 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\RegistrationRequest;
 use App\Models\Staff;
 use App\Providers\RouteServiceProvider;
-use App\Rules\PhoneNumber;
 use Illuminate\Auth\Events\Registered;
-use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules;
 
 class RegisteredUserController extends Controller
 {
@@ -33,16 +31,8 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request)
-    {
-        //dd($request);
-        $request->validate([
-            'full_name' => ['required', 'string', 'max:255'],
-            'phone_number' => ['required', new PhoneNumber, 'unique:'.Staff::class],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.Staff::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
-
+    public function store(RegistrationRequest $request)
+    {                   
         $user = Staff::create([
             'full_name' => $request->full_name,
             'position' => 'Менеджер',
