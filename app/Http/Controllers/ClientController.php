@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ClientRequest;
 use App\Models\Client;
 use Illuminate\Http\Request;
 
@@ -33,9 +34,16 @@ class ClientController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ClientRequest $request)
     {        
-        //
+        Client::create([
+            'full_name' => $request->full_name,
+            'phone_number' => $request->phone_number,
+            'email' => $request->email,
+            'created_at' => now()
+        ]);
+
+        return redirect()->route('contacts');
     }
 
     /**
@@ -46,7 +54,10 @@ class ClientController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('clients.show', [
+            'client' => Client::findOrFail($id),
+            'deals' => Client::findOrFail($id)->deals
+        ]);
     }
 
     /**

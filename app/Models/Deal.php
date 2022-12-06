@@ -30,4 +30,9 @@ class Deal extends Model
     {
         return $this->hasMany(Task::class);
     }
+
+    public function getStage()
+    {
+        return $this->funnel->stages[$this->stage];
+    }
 }
