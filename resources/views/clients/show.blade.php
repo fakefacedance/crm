@@ -1,12 +1,18 @@
 <x-app-layout>
   <x-slot:title>{{ $client->full_name }}</x-slot:title>
   <x-slot:brand>Контакты 🠖 {{ $client->full_name }}</x-slot:brand>
-  
+    
   @can('update', $client)
-  <div class="mt-3">
-    <a href="{{ route('clients.edit', $client->id) }}" class="btn btn-primary btn-sm">Изменить</a>
-  </div>    
+    <a href="{{ route('clients.edit', $client->id) }}" class="btn btn-primary btn-sm mt-3">Изменить</a>
   @endcan
+  
+  @can('delete', App\Models\Client::class)
+    <form action="{{ route('clients.destroy', $client->id) }}" method="POST" class="d-inline-block">
+      @csrf
+      @method('DELETE')
+      <button type="submit" class="btn btn-danger btn-sm mt-3">Удалить</button>
+    </form>
+  @endcan  
 
   <div class="card text-center mt-3">
     <div class="card-header">

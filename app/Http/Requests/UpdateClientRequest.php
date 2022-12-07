@@ -5,10 +5,10 @@ namespace App\Http\Requests;
 use App\Models\Client;
 use App\Rules\PhoneNumber;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class ClientRequest extends FormRequest
+class UpdateClientRequest extends FormRequest
 {
-    protected $redirectRoute = 'contacts';
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -16,7 +16,7 @@ class ClientRequest extends FormRequest
      */
     public function authorize()
     {
-        return $this->user()->can('add client');
+        return $this->user()->can('update', Client::find($this->client_id));
     }
 
     /**
@@ -28,8 +28,8 @@ class ClientRequest extends FormRequest
     {
         return [
             'full_name' => ['required', 'string', 'max:255'],
-            'phone_number' => ['required', new PhoneNumber, 'unique:'.Client::class],
-            'email' => ['nullable', 'string', 'email', 'max:255', 'unique:'.Client::class],
+            'phone_number' => ['required', new PhoneNumber, Rule::unique('clients')->ignore($this->client_id)],
+            'email' => ['nullable', 'string', 'email', 'max:255', Rule::unique('clients')->ignore($this->client_id)],
         ];
     }
 }

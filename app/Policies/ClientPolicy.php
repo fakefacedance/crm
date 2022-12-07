@@ -25,4 +25,15 @@ class ClientPolicy
 
         return $hasDeals || $hasTasks;
     }
+
+    /**
+     * Determine whether the user can delete the model.
+     *
+     * @param  \App\Models\Staff  $staff     
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function delete(Staff $staff)
+    {
+        return $staff->hasRole('admin');
+    }
 }
