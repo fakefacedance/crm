@@ -41,6 +41,7 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
             'created_at' => Carbon::now()
         ]);
+        $user->assignRole('manager');
 
         event(new Registered($user));
 
