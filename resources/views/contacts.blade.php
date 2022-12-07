@@ -39,10 +39,15 @@
     </div>
 
     <div class="tab-pane fade" id="staff-tab-pane" role="tabpanel" aria-labelledby="staff-tab" tabindex="0">
+      @can('add employee')
+        <div class="mt-3">
+          <a href="{{ route('staff.create') }}" class="btn btn-primary btn-sm">+ Добавить</a>
+        </div>    
+      @endcan
       <div class="row g-3 mt-1">
         @foreach ($staff as $employee)
           <div class="col-4" role="button">
-            <div class="p-3 border rounded ">
+            <a href="{{ route('staff.show', $employee->id) }}" class="p-3 border rounded nav-link">
               <div class="fw-semibold">
                 {{ $employee->full_name }}
               </div>          
@@ -54,7 +59,7 @@
                   {{ $employee->position }}
                 </div>
               </div>          
-            </div>
+            </a>
           </div>
         @endforeach            
       </div>

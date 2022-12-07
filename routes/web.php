@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StaffController;
 use App\Models\Client;
 use App\Models\Staff;
 use Illuminate\Support\Facades\Route;
@@ -40,6 +41,6 @@ Route::get('/contacts', function () {
     ]);
 })->name('contacts');
 
-Route::resource('clients', ClientController::class)->except([
-    'index'
-]);
+Route::resource('clients', ClientController::class)->except(['index']);
+
+Route::resource('staff', StaffController::class)->except(['index']);

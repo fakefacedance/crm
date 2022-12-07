@@ -49,11 +49,12 @@
         </div>
 
         <div class="tab-pane fade" id="deals-tab-pane" role="tabpanel" aria-labelledby="deals-tab" tabindex="0">
-          <table class="table table-striped">
+          <table class="table table-striped text-start">
             <thead>
               <tr>
                 <th scope="col">#</th>
                 <th scope="col">Название</th>
+                <th scope="col">Воронка</th>
                 <th scope="col">Стадия</th>
                 <th scope="col">Ответственный</th>
                 <th scope="col">Сумма</th>
@@ -64,10 +65,10 @@
                 <tr>
                   <th scope="row">{{ $index + 1 }}</th>
                   <td>{{ $deal->title }}</td>
+                  <td>{{ $deal->funnel->name }}</td>
                   <td>{{ $deal->getStage()->name }}</td>
                   <td>
-                    {{-- <a href="{{ route('staff.show', $deal->staff->id) }}">{{ $deal->staff->full_name }}</a> --}}
-                    <a href="#">{{ $deal->staff->full_name }}</a>
+                    <a href="{{ route('staff.show', $deal->staff->id) }}">{{ $deal->staff->full_name }}</a>                    
                   </td>
                   <td>{{ $deal->amount }} ₽</td>
                 </tr>

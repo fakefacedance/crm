@@ -13,7 +13,7 @@ class Task extends Model
 
     public function assigner()
     {
-        return $this->belongsTo(Staff::class, 'assgner_id');
+        return $this->belongsTo(Staff::class, 'assigner_id');
     }
 
     public function executor()
@@ -40,4 +40,18 @@ class Task extends Model
     {
         return $this->hasMany(Comment::class);
     }    
+
+    public function getPriorityName()
+    {
+        return match ($this->priority) { 
+            0 => 'Низкий', 
+            1 => 'Средний', 
+            2 => 'Высокий', 
+        };
+    }
+
+    public function isExpired()
+    {
+        return now() > $this->deadline && !$this->is_completed;
+    }
 }
