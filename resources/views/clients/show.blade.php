@@ -3,6 +3,10 @@
   <x-slot:brand>Контакты 🠖 {{ $client->full_name }}</x-slot:brand>
     
   @can('update', $client)
+    <a href="{{ route('clients.custom_fields', $client->id) }}" class="btn btn-success btn-sm mt-3">Редактировать кастомные поля</a>
+  @endcan
+
+  @can('update', $client)
     <a href="{{ route('clients.edit', $client->id) }}" class="btn btn-primary btn-sm mt-3">Изменить</a>
   @endcan
   
@@ -46,6 +50,13 @@
             <p class="col-2 text-start fw-semibold">Дата создания:</p> 
             <p class="col-3 text-start">{{ \Carbon\Carbon::parse($client->created_at)->format('d.m.Y H:i:s') }}</p>
           </div>          
+          @if ($customFields->isNotEmpty()) <hr> @endif
+          @foreach ($customFields as $customField)
+            <div class="row">
+              <p class="col-2 text-start fw-semibold">{{ $customField->name }}:</p> 
+              <p class="col-3 text-start">{{ $customField->value }}</p>
+            </div>
+          @endforeach
         </div>
 
         <div class="tab-pane fade" id="deals-tab-pane" role="tabpanel" aria-labelledby="deals-tab" tabindex="0">

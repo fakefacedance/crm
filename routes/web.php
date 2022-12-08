@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Livewire\Clients\CustomFields;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StaffController;
@@ -41,6 +42,10 @@ Route::get('/contacts', function () {
     ]);
 })->name('contacts');
 
+Route::get('/clients/{client}/custom_fields', CustomFields::class)
+    ->middleware('can:update,client')
+    ->name('clients.custom_fields');
+    
 Route::resource('clients', ClientController::class)->except(['index']);
 
 Route::resource('staff', StaffController::class)->except(['index']);

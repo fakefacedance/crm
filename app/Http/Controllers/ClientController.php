@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateClientRequest;
 use App\Http\Requests\UpdateClientRequest;
 use App\Models\Client;
+use Illuminate\Support\Facades\DB;
 
 class ClientController extends Controller
 {
@@ -46,11 +47,12 @@ class ClientController extends Controller
      */
     public function show($id)
     {
-        $client = Client::findOrFail($id);        
+        $client = Client::findOrFail($id);                
 
         return view('clients.show', [
             'client' => $client,
-            'deals' => $client->deals
+            'deals' => $client->deals,
+            'customFields' => $client->getCustomFields()
         ]);
     }
 
