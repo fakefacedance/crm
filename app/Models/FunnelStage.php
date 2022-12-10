@@ -11,6 +11,12 @@ class FunnelStage extends Model
 
     public $timestamps = false;
 
+    protected $fillable = [
+        'funnel_id',
+        'name',
+        'index',
+    ];
+
     public function funnel()
     {
         return $this->belongsTo(Funnel::class);

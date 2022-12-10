@@ -2,8 +2,12 @@
 
 use App\Http\Livewire\Clients\CustomFields;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\FunnelController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StaffController;
+use App\Http\Livewire\Settings\CreateFunnel;
+use App\Http\Livewire\Settings\EditFunnel;
+use App\Http\Livewire\Settings\SettingsPage;
 use App\Models\Client;
 use App\Models\Staff;
 use Illuminate\Support\Facades\Route;
@@ -37,8 +41,8 @@ require __DIR__.'/auth.php';
 
 Route::get('/contacts', function () {
     return view('contacts', [
-        'clients' => Client::orderBy('full_name')->paginate(12),
-        'staff' => Staff::orderBy('full_name')->paginate(12)        
+        'clients' => Client::orderBy('full_name')->paginate(12, ['*'], 'clientsPage'),
+        'staff' => Staff::orderBy('full_name')->paginate(12, ['*'], 'staffPage')        
     ]);
 })->name('contacts');
 
@@ -49,3 +53,9 @@ Route::get('/clients/{client}/custom_fields', CustomFields::class)
 Route::resource('clients', ClientController::class)->except(['index']);
 
 Route::resource('staff', StaffController::class)->except(['index']);
+
+Route::prefix('settings')->group(function () {
+    Route::get('/', SettingsPage::class)->name('settings');
+    Route::get('/funnels/create', CreateFunnel::class)->name('funnels.create');
+    Route::get('/funnels/{funnel}/edit', EditFunnel::class)->name('funnels.edit');
+});
