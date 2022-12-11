@@ -3,12 +3,14 @@
 namespace App\Http\Livewire\Settings;
 
 use App\Models\Funnel;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class FunnelsTab extends Component
 {
     use WithPagination;
+    use AuthorizesRequests;
 
     protected $paginationTheme = 'bootstrap';
     protected $listeners = ['funnels-tab-selected' => 'tabSelected'];    
@@ -27,6 +29,8 @@ class FunnelsTab extends Component
 
     public function deleteFunnel(Funnel $funnel)
     {        
+        $this->authorize('delete funnel');
+
         $funnel->delete();
     }
 }

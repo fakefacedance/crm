@@ -51,16 +51,26 @@ Route::middleware('auth')->group(function () {
         ->middleware('can:update,client')
         ->name('clients.custom_fields');
         
-    Route::resource('clients', ClientController::class)->except(['index']);
-    
+    Route::resource('clients', ClientController::class)->except(['index']);    
     Route::resource('staff', StaffController::class)->except(['index']);
     
     Route::prefix('settings')->group(function () {
         Route::get('/', SettingsPage::class)->name('settings');
-        Route::get('/funnels/create', CreateFunnel::class)->name('funnels.create');
-        Route::get('/funnels/{funnel}/edit', EditFunnel::class)->name('funnels.edit');
 
-        Route::get('/roles/create', CreateRole::class)->name('roles.create');
-        Route::get('/roles/{role}/edit', EditRole::class)->name('roles.edit');
+        Route::get('/funnels/create', CreateFunnel::class)
+            ->middleware('can:add funnel')
+            ->name('funnels.create');            
+            
+        Route::get('/funnels/{funnel}/edit', EditFunnel::class)
+            ->middleware('can:edit funnel')
+            ->name('funnels.edit');
+
+        Route::get('/roles/create', CreateRole::class)
+            ->middleware('can:add role')
+            ->name('roles.create');
+
+        Route::get('/roles/{role}/edit', EditRole::class)
+            ->middleware('can:edit role')
+            ->name('roles.edit');
     });
 });
