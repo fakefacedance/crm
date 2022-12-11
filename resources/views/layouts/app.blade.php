@@ -8,7 +8,7 @@
         @vite(['resources/css/app.scss', 'resources/js/app.js'])
         @livewireStyles
     </head>
-    <body class="overflow-hidden">
+    <body style="overflow-x: hidden">
       <div class="row" style="height: 100vh;">          
           <div class="col-2 bg-secondary">
             @include('layouts.navigation')

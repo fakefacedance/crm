@@ -13,7 +13,7 @@
       <livewire:settings.funnels-tab></livewire:settings.funnels>
     </div>
     <div class="tab-pane fade" id="nav-roles" role="tabpanel" aria-labelledby="nav-roles-tab" tabindex="0">
-      {{-- <livewire:settings.roles></livewire:settings.roles> --}}
+      <livewire:settings.roles-tab></livewire:settings.roles>
     </div>    
   </div>
 </div>

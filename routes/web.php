@@ -2,11 +2,11 @@
 
 use App\Http\Livewire\Clients\CustomFields;
 use App\Http\Controllers\ClientController;
-use App\Http\Controllers\FunnelController;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StaffController;
 use App\Http\Livewire\Settings\CreateFunnel;
+use App\Http\Livewire\Settings\CreateRole;
 use App\Http\Livewire\Settings\EditFunnel;
+use App\Http\Livewire\Settings\EditRole;
 use App\Http\Livewire\Settings\SettingsPage;
 use App\Models\Client;
 use App\Models\Staff;
@@ -59,5 +59,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/', SettingsPage::class)->name('settings');
         Route::get('/funnels/create', CreateFunnel::class)->name('funnels.create');
         Route::get('/funnels/{funnel}/edit', EditFunnel::class)->name('funnels.edit');
+
+        Route::get('/roles/create', CreateRole::class)->name('roles.create');
+        Route::get('/roles/{role}/edit', EditRole::class)->name('roles.edit');
     });
 });
