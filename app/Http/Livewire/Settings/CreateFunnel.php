@@ -17,7 +17,7 @@ class CreateFunnel extends Component
         return [
             'funnelName' => 'required',
             'inputs.*.name' => 'required',
-            'inputs.*.index' => ['required', 'distinct', 'max:'. $this->inputs->count() - 1],
+            'inputs.*.index' => ['required', 'distinct', 'numeric', 'max:'. $this->inputs->count() - 1],
         ];
     }
 

@@ -10,7 +10,7 @@
         <div class="p-3 border rounded nav-link position-relative">
           <div class="position-absolute top-0 end-0 me-2 mt-2">
             @can('edit funnel') 
-              <a href="#" class="btn btn-primary btn-sm">Изменить</a> 
+              <a href="{{ route('funnels.edit', $funnel->id) }}" class="btn btn-primary btn-sm">Изменить</a> 
             @endcan
             @can('delete funnel')              
               <button wire:click='deleteFunnel({{$funnel}})' class="btn btn-danger btn-sm">Удалить</button>
