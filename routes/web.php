@@ -27,35 +27,37 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+// Route::middleware('auth')->group(function () {
+//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+// });
 
 require __DIR__.'/auth.php';
 
-Route::get('/contacts', function () {
-    return view('contacts', [
-        'clients' => Client::orderBy('full_name')->paginate(12, ['*'], 'clientsPage'),
-        'staff' => Staff::orderBy('full_name')->paginate(12, ['*'], 'staffPage')        
-    ]);
-})->name('contacts');
-
-Route::get('/clients/{client}/custom_fields', CustomFields::class)
-    ->middleware('can:update,client')
-    ->name('clients.custom_fields');
+Route::middleware('auth')->group(function () {
+    Route::get('/contacts', function () {
+        return view('contacts', [
+            'clients' => Client::orderBy('full_name')->paginate(12, ['*'], 'clientsPage'),
+            'staff' => Staff::orderBy('full_name')->paginate(12, ['*'], 'staffPage')        
+        ]);
+    })->name('contacts');
     
-Route::resource('clients', ClientController::class)->except(['index']);
-
-Route::resource('staff', StaffController::class)->except(['index']);
-
-Route::prefix('settings')->group(function () {
-    Route::get('/', SettingsPage::class)->name('settings');
-    Route::get('/funnels/create', CreateFunnel::class)->name('funnels.create');
-    Route::get('/funnels/{funnel}/edit', EditFunnel::class)->name('funnels.edit');
+    Route::get('/clients/{client}/custom_fields', CustomFields::class)
+        ->middleware('can:update,client')
+        ->name('clients.custom_fields');
+        
+    Route::resource('clients', ClientController::class)->except(['index']);
+    
+    Route::resource('staff', StaffController::class)->except(['index']);
+    
+    Route::prefix('settings')->group(function () {
+        Route::get('/', SettingsPage::class)->name('settings');
+        Route::get('/funnels/create', CreateFunnel::class)->name('funnels.create');
+        Route::get('/funnels/{funnel}/edit', EditFunnel::class)->name('funnels.edit');
+    });
 });
