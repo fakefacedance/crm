@@ -4,12 +4,26 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 class Task extends Model
 {
     use HasFactory;
 
     public $timestamps = false;
+
+    protected $fillable = [
+        'title',
+        'description',
+        'assigner_id',
+        'executor_id',
+        'deadline',
+        'priority',
+        'client_id',
+        'deal_id',
+        'is_completed',
+        'created_at',
+    ];
 
     public function assigner()
     {
@@ -53,5 +67,36 @@ class Task extends Model
     public function isExpired()
     {
         return now() > $this->deadline && !$this->is_completed;
+    }
+
+    public static function expired()
+    {
+        return Task::all()->filter(function ($task, $key) {
+            return $task->isExpired();
+        });
+    }
+
+    public static function today()
+    {
+        return Task::where('deadline', '>=', today())
+                    ->where('deadline', '<', Carbon::tomorrow())
+                    ->get();
+    }
+
+    public static function tomorrow()
+    {
+        return Task::where('deadline', '>=', Carbon::tomorrow())
+                    ->where('deadline', '<', Carbon::tomorrow()->addDay())
+                    ->get();
+    }
+
+    public static function deffered()
+    {
+        return Task::where('deadline', '>=', Carbon::tomorrow()->addDay())->get();
+    }
+
+    public function deadlineFormatted()
+    {
+        return Carbon::create($this->deadline)->isoFormat('D MMM YYYY HH:mm');
     }
 }

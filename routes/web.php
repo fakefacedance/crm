@@ -3,6 +3,7 @@
 use App\Http\Livewire\Clients\CustomFields;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\StaffController;
+use App\Http\Controllers\TaskController;
 use App\Http\Livewire\Settings\CreateFunnel;
 use App\Http\Livewire\Settings\CreateRole;
 use App\Http\Livewire\Settings\EditFunnel;
@@ -40,6 +41,8 @@ Route::get('/', function () {
 require __DIR__.'/auth.php';
 
 Route::middleware('auth')->group(function () {
+    Route::resource('tasks', TaskController::class);
+
     Route::get('/contacts', function () {
         return view('contacts', [
             'clients' => Client::orderBy('full_name')->paginate(12, ['*'], 'clientsPage'),
