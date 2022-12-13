@@ -78,7 +78,7 @@ class Task extends Model
 
     public static function today()
     {
-        return Task::where('deadline', '>=', today())
+        return Task::where('deadline', '>=', now())
                     ->where('deadline', '<', Carbon::tomorrow())
                     ->get();
     }

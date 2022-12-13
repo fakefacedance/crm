@@ -62,7 +62,7 @@ class Staff extends Authenticatable
     public function tasksToday()
     {
         return $this->tasksAssignedTo->toQuery()
-            ->where('deadline', '>=', today())
+            ->where('deadline', '>=', now())
             ->where('deadline', '<', Carbon::tomorrow())
             ->get();
     }

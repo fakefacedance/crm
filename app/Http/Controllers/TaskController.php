@@ -22,14 +22,14 @@ class TaskController extends Controller
 
         if ($user->hasPermissionTo('edit any task')) {
             $expiredTasks = Task::expired();
-            $tasksToday = Task::today();
-            $tasksTomorrow = Task::tomorrow();
-            $defferedTasks = Task::deffered();
+            $tasksToday = Task::today()->where('is_completed', false);
+            $tasksTomorrow = Task::tomorrow()->where('is_completed', false);
+            $defferedTasks = Task::deffered()->where('is_completed', false);
         } else {
             $expiredTasks = $user->expiredTasks();
-            $tasksToday = $user->tasksToday();
-            $tasksTomorrow = $user->tasksTomorrow();
-            $defferedTasks = $user->defferedTasks();
+            $tasksToday = $user->tasksToday()->where('is_completed', false);
+            $tasksTomorrow = $user->tasksTomorrow()->where('is_completed', false);
+            $defferedTasks = $user->defferedTasks()->where('is_completed', false);
         }        
 
         return view('tasks.index', [
