@@ -15,7 +15,7 @@
     <h5 class="card-title">{{ $task->title }}</h5>
       @if (isset($task->deal))
         <p>
-          Сделка: <a href="#" class="card-link">{{ $task->deal->title }}</a>
+          Сделка: <a href="{{ route('deals.show', $task->deal->id) }}" class="card-link">{{ $task->deal->title }}</a>
         </p>                
       @elseif (isset($task->client))
         <p>
@@ -27,5 +27,7 @@
       @endif              
     <p class="card-text">{{ $task->description }}</p>            
   </div>
-  <div class="card-footer text-muted">{{ $task->deadlineFormatted() }}</div>
+  <div class="card-footer text-muted">
+    {{ App\Services\DatetimeService::formatted($task->deadline) }}
+  </div>
 </div>

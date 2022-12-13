@@ -11,6 +11,17 @@ class Deal extends Model
 
     public $timestamps = false;
 
+    protected $fillable = [
+        'title',
+        'client_id',
+        'staff_id',
+        'funnel_id',
+        'stage',
+        'amount',
+        'created_at',
+        'closed_at'
+    ];
+
     public function staff()
     {
         return $this->belongsTo(Staff::class);

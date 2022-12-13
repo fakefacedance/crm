@@ -1,5 +1,5 @@
 <x-slot:title>Настройки - Воронки - Создать</x-slot:title>
-<x-slot:brand>Настройки - Воронки - Создать</x-slot:brand>
+<x-layouts.navbar :brand="'Настройки - Воронки - Создать'"></x-layouts.navbar>
 
 <div>  
   <div class="mt-3">

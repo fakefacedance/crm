@@ -12,10 +12,15 @@
     <div class="d-flex flex-row align-items-center justify-content-between">
       <a class="nav-link text-white" href="{{ route('tasks.index') }}">Задачи</a>
       <a class="btn btn-sm btn-outline-light" href="{{ route('tasks.create') }}">Создать</a>
-    </div>    
+    </div>
   </li>
   <li class="nav-item">
-    <a class="nav-link text-white" href="#">Сделки</a>
+    <div class="d-flex flex-row align-items-center justify-content-between">
+      <a class="nav-link text-white" href="{{ route('deals.index') }}">Сделки</a>
+      <a href="{{ route('deals.create') }}" class="badge text-bg-primary">
+        <i class="bi bi-plus-circle"></i>
+      </a>
+    </div>    
   </li>
   <li class="nav-item">
     <a class="nav-link text-white" href="{{ route('contacts') }}">Контакты</a>

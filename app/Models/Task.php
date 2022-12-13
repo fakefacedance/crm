@@ -94,9 +94,4 @@ class Task extends Model
     {
         return Task::where('deadline', '>=', Carbon::tomorrow()->addDay())->get();
     }
-
-    public function deadlineFormatted()
-    {
-        return Carbon::create($this->deadline)->isoFormat('D MMM YYYY HH:mm');
-    }
 }

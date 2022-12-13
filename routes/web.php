@@ -1,9 +1,13 @@
 <?php
 
-use App\Http\Livewire\Clients\CustomFields;
+use App\Http\Livewire\Clients\CustomFields as ClientsCustomFields;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\DealController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\TaskController;
+use App\Http\Livewire\Deals\CustomFields as DealsCustomFields;
+use App\Http\Livewire\Deals\Index as DealsIndex;
+use App\Http\Livewire\Deals\Show as DealsShow;
 use App\Http\Livewire\Settings\CreateFunnel;
 use App\Http\Livewire\Settings\CreateRole;
 use App\Http\Livewire\Settings\EditFunnel;
@@ -43,6 +47,13 @@ require __DIR__.'/auth.php';
 Route::middleware('auth')->group(function () {
     Route::resource('tasks', TaskController::class)->except(['show']);
 
+    Route::resource('deals', DealController::class)->only(['create', 'store', 'destroy']);
+    Route::get('/deals', DealsIndex::class)->name('deals.index');
+    Route::get('/deals/{deal}', DealsShow::class)->name('deals.show');
+    Route::get('/deals/{deal}/custom_fields', DealsCustomFields::class)
+        ->middleware('can:update,deal')
+        ->name('deals.custom_fields');
+
     Route::get('/contacts', function () {
         return view('contacts', [
             'clients' => Client::orderBy('full_name')->paginate(12, ['*'], 'clientsPage'),
@@ -50,7 +61,7 @@ Route::middleware('auth')->group(function () {
         ]);
     })->name('contacts');
     
-    Route::get('/clients/{client}/custom_fields', CustomFields::class)
+    Route::get('/clients/{client}/custom_fields', ClientsCustomFields::class)
         ->middleware('can:update,client')
         ->name('clients.custom_fields');
         

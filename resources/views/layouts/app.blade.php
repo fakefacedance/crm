@@ -14,16 +14,11 @@
             @include('layouts.navigation')
           </div>            
           <main class="col-10 bg-light">  
-            <div class="container">
-              <nav class="navbar bg-white border border-1 rounded mt-4">
-                <div class="container-fluid">
-                  <span class="navbar-brand mb-0 h1">{{ $brand }}</span>
-                </div>
-              </nav>            
-                {{ $slot }}
+            <div class="container">              
+              {{ $slot }}
             </div>            
           </main>                       
-      </div> 
+      </div>       
       @livewireScripts        
     </body>
 </html>

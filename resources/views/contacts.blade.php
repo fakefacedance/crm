@@ -1,6 +1,6 @@
 <x-app-layout>
   <x-slot:title>Контакты</x-slot:title>
-  <x-slot:brand>Контакты</x-slot:brand>    
+  <x-layouts.navbar :brand="'Контакты'"></x-layouts.navbar>    
 
   {{-- <livewire:contacts.index /> --}}
   <ul class="nav nav-tabs mt-3" id="myTab" role="tablist">
@@ -16,7 +16,7 @@
     <div class="tab-pane fade show active" id="clients-tab-pane" role="tabpanel" aria-labelledby="clients-tab" tabindex="0">
       @can('add client')
       <div class="mt-3">
-        <a href="{{ route('clients.create') }}" class="btn btn-primary btn-sm">+ Добавить</a>
+        <a href="{{ route('clients.create') }}" class="btn btn-success btn-sm">+ Добавить</a>
       </div>    
       @endcan
       <div class="row g-3 mt-1">
@@ -41,7 +41,7 @@
     <div class="tab-pane fade" id="staff-tab-pane" role="tabpanel" aria-labelledby="staff-tab" tabindex="0">
       @can('add employee')
         <div class="mt-3">
-          <a href="{{ route('staff.create') }}" class="btn btn-primary btn-sm">+ Добавить</a>
+          <a href="{{ route('staff.create') }}" class="btn btn-success btn-sm">+ Добавить</a>
         </div>    
       @endcan
       <div class="row g-3 mt-1">

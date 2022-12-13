@@ -47,7 +47,7 @@
       type="datetime-local"
       class="form-control w-25 @error('deadline') is-invalid @enderror"
       id="deadline" 
-      min="{{ \Carbon\Carbon::now() }}"
+      min="{{ $task->deadline }}"
       step="any"
       value="{{ $task->deadline }}">
       @error('deadline')

@@ -1,6 +1,6 @@
 <x-app-layout>
   <x-slot:title>Задачи</x-slot:title>
-  <x-slot:brand>Задачи</x-slot:brand>
+  <x-layouts.navbar :brand="'Задачи'"></x-layouts.navbar>
 
 
   <div class="row g-4 mt-1 mb-1">

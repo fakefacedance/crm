@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Livewire\Clients;
+namespace App\Http\Livewire\Deals;
 
-use Livewire\Component;
-use App\Models\Client;
+use App\Models\Deal;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use Livewire\Component;
 
 class CustomFields extends Component
 {
-    public Client $client;
+    public Deal $deal;
     public Collection $inputs;    
     public $removed = [];
 
@@ -21,14 +21,15 @@ class CustomFields extends Component
 
     public function render()
     {
-        return view('livewire.clients.custom-fields', [
-            'customFieldsTypes' => DB::table('custom_fields_types')->get()
+        return view('livewire.deals.custom-fields', [
+            'customFieldsTypes' => DB::table('custom_fields_types')->get(),
         ]);
     }    
 
-    public function mount(Client $client)
+    public function mount(Deal $deal)
     {                      
-        $this->inputs = collect(DB::table('clients_custom_fields')->where('client_id', $client->id)->get());                     
+        $this->deal = $deal;
+        $this->inputs = collect(DB::table('deals_custom_fields')->where('deal_id', $deal->id)->get());
     }
 
     public function addInput()
@@ -38,7 +39,7 @@ class CustomFields extends Component
             'name' => '',
             'value' => '',
             'field_type_id' => '',
-            'client_id' => $this->client->id
+            'deal_id' => $this->deal->id
         ]);
     }
 
@@ -57,16 +58,16 @@ class CustomFields extends Component
 
         $this->updateDb();     
         
-        return redirect()->route('clients.show', $this->client->id);
+        return redirect()->route('deals.show', $this->deal->id);        
     }
 
     private function updateDb()
     {
-        DB::table('clients_custom_fields')->upsert($this->inputs->all(), 'id');
+        DB::table('deals_custom_fields')->upsert($this->inputs->all(), 'id');
 
         foreach ($this->removed as $id) {
-            DB::table('clients_custom_fields')->delete($id);
+            DB::table('deals_custom_fields')->delete($id);
         }
         $this->removed = [];
-    }
+    }    
 }

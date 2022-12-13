@@ -1,5 +1,5 @@
 <x-slot:title>Настройки</x-slot:title>
-<x-slot:brand>Настройки</x-slot:brand>
+<x-layouts.navbar :brand="'Настройки'"></x-layouts.navbar>
 
 <div>
   <nav class="mt-3">

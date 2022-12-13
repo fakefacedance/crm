@@ -1,6 +1,6 @@
 <x-app-layout>
-  <x-slot:title>{{ $client->full_name }}</x-slot:title>
-  <x-slot:brand>Контакты 🠖 {{ $client->full_name }}</x-slot:brand>
+  <x-slot:title>{{ $client->full_name }}</x-slot:title>  
+  <x-layouts.navbar :brand='"Контакты 🠖 $client->full_name"'></x-layouts.navbar>
     
   @can('update', $client)
     <a href="{{ route('clients.custom_fields', $client->id) }}" class="btn btn-success btn-sm mt-3">Редактировать кастомные поля</a>
@@ -75,7 +75,9 @@
               @foreach ($deals as $index => $deal)
                 <tr>
                   <th scope="row">{{ $index + 1 }}</th>
-                  <td>{{ $deal->title }}</td>
+                  <td>
+                    <a href="{{ route('deals.show', $deal->id) }}">{{ $deal->title }}</a>                    
+                  </td>
                   <td>{{ $deal->funnel->name }}</td>
                   <td>{{ $deal->getStage()->name }}</td>
                   <td>

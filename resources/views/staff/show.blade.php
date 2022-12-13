@@ -122,7 +122,9 @@
               @foreach ($deals as $index => $deal)
                 <tr @if($deal->stage === 4) class="table-danger" @elseif($deal->stage === 3) class="table-success" @endif>
                   <th scope="row">{{ $index + 1 }}</th>
-                  <td>{{ $deal->title }}</td>
+                  <td>
+                    <a href="{{ route('deals.show', $deal->id) }}">{{ $deal->title }}</a>                    
+                  </td>
                   <td>
                     <a href="{{ route('clients.show', $deal->client->id) }}">{{ $deal->client->full_name }}</a>                    
                   </td>
