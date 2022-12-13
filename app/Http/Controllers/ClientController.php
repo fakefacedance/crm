@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateClientRequest;
 use App\Http\Requests\UpdateClientRequest;
 use App\Models\Client;
-use Illuminate\Support\Facades\DB;
 
 class ClientController extends Controller
 {
@@ -63,13 +62,11 @@ class ClientController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
-        $client = Client::findOrFail($id);
-        
-        $this->authorize('update', $client);
+    {                
+        $this->authorize('update', $id);
 
         return view('clients.edit', [
-            'client' => $client
+            'client' => Client::findOrFail($id)
         ]);
     }
 
@@ -100,12 +97,10 @@ class ClientController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {        
-        $client = Client::find($id);
+    {                
+        $this->authorize('delete', $id);
 
-        $this->authorize('delete', $client);
-
-        $client->delete();
+        Client::find($id)->delete();
 
         return redirect()->route('contacts');
     }
