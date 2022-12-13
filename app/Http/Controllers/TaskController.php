@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateTaskRequest;
+use App\Http\Requests\UpdateTaskRequest;
 use App\Models\Client;
 use App\Models\Deal;
 use App\Models\Staff;
 use App\Models\Task;
-use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
@@ -81,18 +81,7 @@ class TaskController extends Controller
         ]);
 
         return redirect()->route('tasks.index');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+    }    
 
     /**
      * Show the form for editing the specified resource.
@@ -102,7 +91,17 @@ class TaskController extends Controller
      */
     public function edit($id)
     {
-        //
+        $this->authorize('update', $id);
+
+        $user = Staff::find(auth()->user()->id);
+        $deals = $user->hasPermissionTo('edit any deal') ? Deal::all() : $user->deals;
+
+        return view('tasks.edit', [
+            'task' => Task::find($id),
+            'employees' => Staff::all(),
+            'deals' => $deals,
+            'clients' => Client::all()
+        ]);
     }
 
     /**
@@ -112,9 +111,19 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateTaskRequest $request, $id)
     {
-        //
+        Task::where('id', $id)->update([
+            'title' => $request->title,
+            'description' => $request->description,            
+            'executor_id' => $request->executor ?: $request->user()->id,
+            'deadline' => $request->deadline,
+            'priority' => $request->priority ?: 0,
+            'client_id' => $request->client,
+            'deal_id' => $request->deal,
+        ]);
+
+        return redirect()->route('tasks.index');
     }
 
     /**
@@ -124,7 +133,11 @@ class TaskController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
-        //
+    {        
+        $this->authorize('delete', $id);
+
+        Task::find($id)->delete();      
+        
+        return redirect()->back();
     }
 }
