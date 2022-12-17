@@ -1,5 +1,12 @@
 <div class="card shadow-sm mt-2 @if($task->priority == 2) border-danger @elseif($task->priority == 1) border-warning @endif">          
   <div class="card-body position-relative">
+    @isset($task->remind_at)
+      <div class="position-absolute top-0 start-0 ms-1">
+        <div class="badge text-bg-secondary">
+          <i class="bi bi-alarm"></i> {{ App\Services\DatetimeService::formatted($task->remind_at) }} 
+        </div>        
+      </div>
+    @endisset    
     <div class="position-absolute top-0 end-0 me-1">
       <a href="{{ route('tasks.edit', $task->id) }}" class="badge text-bg-primary">
         <i class="bi bi-pencil"></i>

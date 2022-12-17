@@ -27,6 +27,7 @@ class UpdateTaskRequest extends FormRequest
             'title' => ['required', 'max: 255'],
             'description' => ['nullable', 'max: 255'],
             'deadline' => ['required'],
+            'remind_at' => ['nullable'],
             'priority' => ['nullable', 'numeric', 'min:0', 'max:2'],
         ];
     }

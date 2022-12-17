@@ -66,13 +66,14 @@ class TaskController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(CreateTaskRequest $request)
-    {
+    {        
         Task::create([
             'title' => $request->title,
             'description' => $request->description,
             'assigner_id' => $request->user()->id,
             'executor_id' => $request->executor ?: $request->user()->id,
             'deadline' => $request->deadline,
+            'remind_at' => $request->remind_at,
             'priority' => $request->priority ?: 0,
             'client_id' => $request->client,
             'deal_id' => $request->deal,
@@ -118,6 +119,7 @@ class TaskController extends Controller
             'description' => $request->description,            
             'executor_id' => $request->executor ?: $request->user()->id,
             'deadline' => $request->deadline,
+            'remind_at' => $request->remind_at,
             'priority' => $request->priority ?: 0,
             'client_id' => $request->client,
             'deal_id' => $request->deal,

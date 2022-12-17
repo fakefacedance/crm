@@ -18,6 +18,7 @@ class Task extends Model
         'assigner_id',
         'executor_id',
         'deadline',
+        'remind_at',
         'priority',
         'client_id',
         'deal_id',

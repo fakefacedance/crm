@@ -40,20 +40,35 @@
     </div>
     @endcan
 
-    <div class="mb-3">
-      <label for="deadline">Крайний срок</label>
-      <input 
-      name="deadline"
-      type="datetime-local"
-      class="form-control w-25 @error('deadline') is-invalid @enderror"
-      id="deadline" 
-      min="{{ $task->deadline }}"
-      step="any"
-      value="{{ $task->deadline }}">
-      @error('deadline')
-        <div class="invalid-feedback">{{ $message }}</div>   
-      @enderror
-    </div>
+    <div class="d-flex flex-row mb-3">
+      <div class="me-3">
+        <label for="deadline">Крайний срок</label>
+        <input 
+        name="deadline"
+        type="datetime-local"
+        class="form-control @error('deadline') is-invalid @enderror"
+        id="deadline" 
+        min="{{ $task->deadline }}"
+        step="any"
+        value="{{ $task->deadline }}">
+        @error('deadline')
+          <div class="invalid-feedback">{{ $message }}</div>   
+        @enderror
+      </div>
+      <div>
+        <label for="deadline">Напоминание</label>
+        <input 
+        name="remind_at"
+        type="datetime-local"
+        class="form-control @error('remind_at') is-invalid @enderror"        
+        min="{{ now() }}"
+        step="any"
+        value="{{ $task->remind_at }}">
+        @error('remind_at')
+          <div class="invalid-feedback">{{ $message }}</div>   
+        @enderror
+      </div>
+    </div>    
 
     <div class="mb-3 d-flex flex-row align-items-end">
       <div>        

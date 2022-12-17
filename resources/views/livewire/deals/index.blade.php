@@ -11,7 +11,7 @@
     </select>
   </nav>  
 
-  <div class="overflow-scroll">  
+  <div class="overflow-auto">  
     <div class="d-flex flex-row mt-3 mb-4">
       @foreach ($selectedFunnel->stages as $stage)
         <div class="me-3 bg-white" style="min-width: 290px;">
