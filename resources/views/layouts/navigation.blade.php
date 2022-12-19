@@ -30,7 +30,7 @@
     <a class="nav-link text-white" href="{{ route('contacts') }}">Контакты</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link text-white" href="#">Аналитика</a>
+    <a class="nav-link text-white" href="{{ route('analytics.index') }}">Аналитика</a>
   </li>
   <li class="nav-item">
     <a class="nav-link text-white" href="{{ route('settings') }}">Настройки</a>

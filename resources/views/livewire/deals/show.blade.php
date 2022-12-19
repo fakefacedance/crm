@@ -87,7 +87,9 @@
                   <option value="{{ $stage->index }}">
                     {{ $stage->name }}
                   </option>
-                @endforeach
+                @endforeach                
+                <option value="{{ $successStageIndex }}">Успешно реализовано</option>
+                <option value="{{ $failStageIndex }}">Закрыто и не реализовано</option>
               </select>
             </div>
           </div>                         

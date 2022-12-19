@@ -1,7 +1,13 @@
-<x-slot:title>Настройки - Воронки - Создать</x-slot:title>
-<x-layouts.navbar :brand="'Настройки - Воронки - Создать'"></x-layouts.navbar>
-
 <div>  
+  <x-slot:title>Настройки - Воронки - Создать</x-slot:title>
+  <x-layouts.navbar :brand="'Настройки - Воронки - Создать'"></x-layouts.navbar>
+
+  <div class="mt-3 alert alert-info" role="alert">
+    Обратите внимание, что для воронки {{ $funnelName }} также будут автоматически созданы стадии 
+    <span class="fw-bold">Успешно реализовано</span>
+     и 
+     <span class="fw-bold">Закрыто и не реализовано</span>.
+  </div>
   <div class="mt-3">
     <label for="funnelName" class="form-label">Название</label>
     <input 

@@ -5,6 +5,7 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\DealController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\TaskController;
+use App\Http\Livewire\Analytics\Index as AnalyticsIndex;
 use App\Http\Livewire\Deals\CustomFields as DealsCustomFields;
 use App\Http\Livewire\Deals\Index as DealsIndex;
 use App\Http\Livewire\Deals\Show as DealsShow;
@@ -53,6 +54,8 @@ Route::middleware('auth')->group(function () {
         
     Route::resource('clients', ClientController::class)->except(['index']);    
     Route::resource('staff', StaffController::class)->except(['index']);
+
+    Route::get('/analytics', AnalyticsIndex::class)->name('analytics.index');
     
     Route::prefix('settings')->group(function () {
         Route::get('/', SettingsPage::class)->name('settings');

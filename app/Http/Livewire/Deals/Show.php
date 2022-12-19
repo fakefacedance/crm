@@ -17,6 +17,9 @@ class Show extends Component
     public $funnelStages;
     public $employeeId;
 
+    public $successStageIndex = 254;
+    public $failStageIndex = 255;
+
     protected $rules = [
         'tempDeal.funnel_id' => ['required', 'numeric', 'exists:'.Funnel::class.',id'],
         'tempDeal.title' => ['required', 'max:255'],
@@ -33,9 +36,14 @@ class Show extends Component
     public function mount(Deal $deal)
     {
         $this->selectedTab = 'tasks';
-        $this->tempDeal = $this->deal = $deal;
         $this->funnelStages = $this->deal->funnel->stages;
         $this->employeeId = $this->deal->staff->id;        
+        $this->deal = $deal;
+        
+        if (isset($this->deal->closed_at)) {
+            $this->deal->stage = $this->deal->success ? $this->successStageIndex : $this->failStageIndex;
+        } 
+        $this->tempDeal = $this->deal;        
     }
 
     public function render()
@@ -62,20 +70,32 @@ class Show extends Component
     }
 
     public function editModeToggle()
-    {        
-        $this->editModeEnabled = ! $this->editModeEnabled;
+    {                
+        $this->editModeEnabled = !$this->editModeEnabled;
         $this->tempDeal = $this->deal;
-        $this->emit('refreshPage');
+
+        $this->emit('refreshPage');        
     }
 
     public function saveChanges()
     {                
         $this->validate();
 
+        if ($this->tempDeal->stage == $this->successStageIndex || $this->tempDeal->stage == $this->failStageIndex) {
+            $this->tempDeal->closed_at = now();
+
+            if ($this->tempDeal->stage == $this->successStageIndex) {
+                $this->tempDeal->success = true;
+            } else {
+                $this->tempDeal->success = false;
+            }
+        }
+
         $this->tempDeal->staff_id = $this->employeeId;
+        $this->tempDeal->stage = $this->deal->stage;
         $this->deal = $this->tempDeal;
         $this->deal->save();
         
-        $this->editModeEnabled = ! $this->editModeEnabled;
+        $this->editModeEnabled = !$this->editModeEnabled;
     }
 }
