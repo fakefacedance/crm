@@ -45,4 +45,9 @@ class Index extends Component
                 ->whereNotNull('closed_at')
                 ->where('success', false);
     }
+
+    public function getSumByStage($stage)
+    {
+        return number_format($this->getDealsByStage($stage)->sum('amount'), 2, ',', ' ');
+    }
 }

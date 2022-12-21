@@ -1,12 +1,5 @@
 <div class="card shadow-sm mt-2 @if($task->priority == 2) border-danger @elseif($task->priority == 1) border-warning @endif">          
-  <div class="card-body position-relative">
-    @isset($task->remind_at)
-      <div class="position-absolute top-0 start-0 ms-1">
-        <div class="badge text-bg-secondary">
-          <i class="bi bi-alarm"></i> {{ App\Services\DatetimeService::formatted($task->remind_at) }} 
-        </div>        
-      </div>
-    @endisset    
+  <div class="card-body position-relative">    
     <div class="position-absolute top-0 end-0 me-1">
       <a href="{{ route('tasks.edit', $task->id) }}" class="badge text-bg-primary">
         <i class="bi bi-pencil"></i>
@@ -31,8 +24,17 @@
           href="{{ route('clients.show', $task->client->id) }}" 
           class="card-link">{{ $task->client->full_name }}</a>
         </p>
-      @endif              
-    <p class="card-text">{{ $task->description }}</p>            
+      @endif     
+      @isset($task->description)
+        <p class="card-text text-truncate @isset($task->remind_at) mb-3 @endisset">{{ $task->description }}</p>                      
+      @endisset 
+      @isset($task->remind_at)
+      <div class="position-absolute bottom-0 end-0 me-1 mb-1">
+        <div class="badge text-bg-secondary">
+          <i class="bi bi-alarm"></i> {{ App\Services\DatetimeService::formatted($task->remind_at) }} 
+        </div>        
+      </div>
+    @endisset            
   </div>
   <div class="card-footer text-muted">
     {{ App\Services\DatetimeService::formatted($task->deadline) }}

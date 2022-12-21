@@ -19,7 +19,7 @@
             <div class="fw-semibold">{{ $stage->name }}</div>          
             <div class="d-flex flex-row justify-content-between">
               <div class="fw-light">Сделок: {{ $this->getDealsByStage($stage)->count() }}</div>
-              <div class="fw-light">{{ $this->getDealsByStage($stage)->sum('amount')}} ₽</div>
+              <div class="fw-light">{{ $this->getSumByStage($stage) }} ₽</div>
             </div>        
           </div>
         </div>
@@ -29,7 +29,7 @@
           <div class="fw-semibold">Успешно реализовано</div>          
           <div class="d-flex flex-row justify-content-between">
             <div class="fw-light">Сделок: {{ $this->successfulDeals->count() }}</div>
-            <div class="fw-light">{{ $this->successfulDeals->sum('amount') }} ₽</div>
+            <div class="fw-light">{{ number_format($this->successfulDeals->sum('amount'), 2, ',', ' ') }} ₽</div>
           </div>        
         </div>
       </div>      
@@ -38,7 +38,7 @@
           <div class="fw-semibold">Закрыто и не реализовано</div>          
           <div class="d-flex flex-row justify-content-between">
             <div class="fw-light">Сделок: {{ $this->failedDeals->count() }}</div>
-            <div class="fw-light">{{ $this->failedDeals->sum('amount') }} ₽</div>
+            <div class="fw-light">{{ number_format($this->failedDeals->sum('amount'), 2, ',', ' ') }} ₽</div>
           </div>        
         </div>
       </div>      

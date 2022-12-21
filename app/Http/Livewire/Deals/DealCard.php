@@ -18,4 +18,9 @@ class DealCard extends Component
     {
         return view('livewire.deals.deal-card');
     }
+
+    public function getAmountFormattedProperty()
+    {
+        return number_format($this->deal->amount, 2, ',', ' ');
+    }
 }

@@ -6,6 +6,6 @@
   </a>  
   </object>     
   <div class="d-flex flex-row justify-content-end">                
-    <div class="fw-light">{{ $deal->amount }} ₽</div>
+    <div class="fw-light">{{ $this->amountFormatted }} ₽</div>
   </div>        
 </a>
