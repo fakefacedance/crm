@@ -34,14 +34,4 @@ class Index extends Component
         $this->funnelsTabSelected = false;
         $this->managersTabSelected = true;
     }
-
-    // public function dateFromChanged()
-    // {                
-    //     #
-    // }
-
-    // public function dateToChanged()
-    // {
-    //     #
-    // }
 }
