@@ -10,40 +10,35 @@ use Livewire\Component;
 
 class Show extends Component
 {
-    public Deal $deal;   
-    public Deal $tempDeal; 
+    public Deal $deal;       
+    public $editModeEnabled = false;    
     public $selectedTab;
-    public $editModeEnabled = false;
-    public $funnelStages;
-    public $employeeId;
+    public $selectedFunnelId;    
+    public $selectedStage;
 
     public $successStageIndex = 254;
     public $failStageIndex = 255;
 
-    protected $rules = [
-        'tempDeal.funnel_id' => ['required', 'numeric', 'exists:'.Funnel::class.',id'],
-        'tempDeal.title' => ['required', 'max:255'],
-        'tempDeal.stage' => ['required', 'numeric'],
-        'tempDeal.amount' => ['required', 'min:0', 'max:99999999.99'],
+    protected $rules = [        
+        'deal.title' => ['required', 'max:255'],        
+        'deal.amount' => ['required', 'min:0', 'max:99999999.99'],
+        'deal.staff_id' => ['required', 'exists:'.Staff::class.',id'],
     ];
-    protected $listeners = [
-        'funnelSelected',
+    protected $listeners = [        
         'tabSelected',
         'editModeToggle',        
-        'refreshPage' => '$refresh'
     ];
+
+    public function getFunnelProperty()
+    {
+        return Funnel::find($this->selectedFunnelId);
+    }
     
     public function mount(Deal $deal)
     {
         $this->selectedTab = 'tasks';
-        $this->funnelStages = $this->deal->funnel->stages;
-        $this->employeeId = $this->deal->staff->id;        
-        $this->deal = $deal;
-        
-        if (isset($this->deal->closed_at)) {
-            $this->deal->stage = $this->deal->success ? $this->successStageIndex : $this->failStageIndex;
-        } 
-        $this->tempDeal = $this->deal;        
+        $this->selectedFunnelId = $this->deal->funnel->id;        
+        $this->deal = $deal;                               
     }
 
     public function render()
@@ -55,47 +50,63 @@ class Show extends Component
             'customFields' => $customFields,
             'employees' => Staff::all(),
         ]);
-    }
-
-    public function funnelSelected()
-    {                
-        $this->funnelStages = Funnel::find($this->tempDeal->funnel_id)->stages;
-        $this->emit('refreshPage');     
-    }
+    }    
 
     public function tabSelected($tabName)
     {        
-        $this->selectedTab = $tabName;
-        $this->emit('refreshPage');
+        $this->selectedTab = $tabName;        
+    }
+
+    public function stageSelected($stage)
+    {
+        $this->selectedStage = $stage;
     }
 
     public function editModeToggle()
-    {                
-        $this->editModeEnabled = !$this->editModeEnabled;
-        $this->tempDeal = $this->deal;
+    {
+        if ($this->editModeEnabled) {
+            $this->selectedStage = $this->deal->stage;
+        }
+                
+        if ($this->deal->isDirty()) {
+            $this->deal->fill($this->deal->getOriginal());
+        }        
+        $this->selectedFunnelId = $this->deal->funnel->id;
 
-        $this->emit('refreshPage');        
+        $this->editModeEnabled = !$this->editModeEnabled;
     }
 
     public function saveChanges()
     {                
         $this->validate();
 
-        if ($this->tempDeal->stage == $this->successStageIndex || $this->tempDeal->stage == $this->failStageIndex) {
-            $this->tempDeal->closed_at = now();
-
-            if ($this->tempDeal->stage == $this->successStageIndex) {
-                $this->tempDeal->success = true;
-            } else {
-                $this->tempDeal->success = false;
-            }
-        }
-
-        $this->tempDeal->staff_id = $this->employeeId;
-        $this->tempDeal->stage = $this->deal->stage;
-        $this->deal = $this->tempDeal;
+        $this->deal->funnel_id = $this->selectedFunnelId;
+        $this->setDealStage();        
         $this->deal->save();
-        
+                
         $this->editModeEnabled = !$this->editModeEnabled;
+    }
+
+    private function setDealStage()
+    {
+        if ($this->selectedStage == $this->successStageIndex || 
+        $this->selectedStage == $this->failStageIndex) {
+            $this->setDealStageIfTerminal();
+        } else {            
+            $this->setDealStageIfNotTerminal();
+        }
+    }
+
+    private function setDealStageIfTerminal()
+    {        
+        $this->deal->success = $this->selectedStage == $this->successStageIndex;        
+        $this->deal->closed_at = now();        
+    }
+
+    private function setDealStageIfNotTerminal()
+    {
+        $this->deal->stage = $this->selectedStage;
+        $this->deal->closed_at = null;
+        $this->deal->success = false;
     }
 }

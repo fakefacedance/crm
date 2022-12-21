@@ -11,7 +11,7 @@
               {{ $deal->title }}
             </div>
           @else
-            <input type="text" wire:model.defer="tempDeal.title" class="form-control fs-5 fw-semibold">
+            <input type="text" wire:model="deal.title" class="form-control fs-5 fw-semibold">
           @endif                        
         </div>
         <div class="col-8">
@@ -64,8 +64,7 @@
             <div>
               <label for="funnel">Воронка</label>   
               <select 
-              wire:model='tempDeal.funnel_id'
-              wire:change="$emit('funnelSelected')" 
+              wire:model='selectedFunnelId'              
               name="funnel" 
               class="form-select form-select-sm"
               @if (!$editModeEnabled) disabled @endif>
@@ -78,33 +77,37 @@
             </div>
             <div>
               <label for="funnel">Стадия</label>
-              <select 
-              wire:model="tempDeal.stage" 
+              <select              
+              wire:change='stageSelected($event.target.value)'
               name="funnel_stage" 
               class="form-select form-select-sm"
               @if (!$editModeEnabled) disabled @endif>      
-                @foreach ($funnelStages as $stage)
-                  <option value="{{ $stage->index }}">
+                @foreach ($this->funnel->stages as $stage)
+                  <option value="{{ $stage->index }}" @selected($deal->stage == $stage->index && !isset($deal->closed_at))>
                     {{ $stage->name }}
                   </option>
                 @endforeach                
-                <option value="{{ $successStageIndex }}">Успешно реализовано</option>
-                <option value="{{ $failStageIndex }}">Закрыто и не реализовано</option>
+                <option value="{{ $successStageIndex }}" @selected(isset($deal->closed_at) && $deal->success)>
+                  Успешно реализовано
+                </option>
+                <option value="{{ $failStageIndex }}" @selected(isset($deal->closed_at) && !$deal->success)>
+                  Закрыто и не реализовано
+                </option>
               </select>
             </div>
           </div>                         
           <div class="mb-2">
             <label for="amount" class="form-label">Сумма</label>
             <input
-            wire:model="tempDeal.amount"
+            wire:model="deal.amount"
             type="number"
             name="amount"                  
-            class="form-control form-control-sm @error('tempDeal.amount') is-invalid @enderror" 
+            class="form-control form-control-sm @error('deal.amount') is-invalid @enderror" 
             min="0"
             max="99999999.99"
             step="0.01"                            
             @if (!$editModeEnabled) disabled @endif>
-            @error('tempDeal.amount')
+            @error('deal.amount')
               <div class="invalid-feedback">{{ $message }}</div>   
             @enderror      
           </div>            
@@ -128,7 +131,7 @@
           <div class="mb-3">
             <label for="employee">Ответственный</label>
             <select 
-            wire:model="employeeId"
+            wire:model="deal.staff_id"
             name="employee" 
             class="form-select form-select-sm"
             @if (!$editModeEnabled) disabled @endif>      
