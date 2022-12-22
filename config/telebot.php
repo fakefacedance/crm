@@ -47,6 +47,7 @@ return [
 
             'handlers' => [
                 // Your update handlers
+                App\Services\MessageUpdateHandler::class,
             ],
         ],
 
