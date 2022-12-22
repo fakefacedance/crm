@@ -186,6 +186,7 @@ return [
          * Package Service Providers...
          */
         Spatie\Permission\PermissionServiceProvider::class,
+        WeStacks\TeleBot\Laravel\Providers\TeleBotServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -210,6 +211,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
+        'TeleBot' => WeStacks\TeleBot\Laravel\TeleBot::class,
     ])->toArray(),
 
 ];
