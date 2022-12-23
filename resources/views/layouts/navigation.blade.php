@@ -47,4 +47,9 @@
       <i class="bi bi-gear"></i> Настройки
     </a>
   </li>
+  <li class="nav-item mt-3">
+    <a class="nav-link text-white" href="{{ route('incoming_leads.index') }}">
+      <i class="bi bi-chat-left-text"></i> Входящие лиды
+    </a>
+  </li>
 </ul>

@@ -2,25 +2,25 @@
 
 namespace App\Notifications;
 
-use App\Models\Staff;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\BroadcastMessage;
+use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class TaskNotification extends Notification implements ShouldBroadcast
+class MessageNotification extends Notification
 {
     use Queueable;
 
-    public string $taskTitle;
+    public $message;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct(string $taskTitle)
+    public function __construct($message)
     {
-        $this->taskTitle = $taskTitle;
+        $this->message = $message;
     }
 
     /**
@@ -35,11 +35,10 @@ class TaskNotification extends Notification implements ShouldBroadcast
     }
 
     public function toBroadcast($notifiable): BroadcastMessage
-    {                
+    {
         return new BroadcastMessage([
-            'type' => 'taskNotification',
-            'employeeName' => Staff::find($notifiable->id)->full_name,
-            'taskTitle' => $this->taskTitle,
+            'type' => self::class,            
+            'message' => $this->message,
         ]);
     }
 }

@@ -36,16 +36,18 @@
             <p class="col-2 text-start fw-semibold">ФИО:</p> 
             <p class="col-3 text-start">{{ $client->full_name }}</p>
           </div>
+          @isset ($client->phone_number)
           <div class="row">
             <p class="col-2 text-start fw-semibold">Номер телефона:</p> 
             <p class="col-3 text-start">{{ $client->phone_number }}</p>
           </div>
+          @endisset
           @isset ($client->email)
           <div class="row">
             <p class="col-2 text-start fw-semibold">Email:</p> 
             <p class="col-3 text-start">{{ $client->email }}</p>
           </div>
-          @endisset                             
+          @endisset         
           <div class="row">
             <p class="col-2 text-start fw-semibold">Дата создания:</p> 
             <p class="col-3 text-start">{{ \Carbon\Carbon::parse($client->created_at)->format('d.m.Y H:i:s') }}</p>

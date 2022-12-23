@@ -25,8 +25,8 @@
       type="tel" 
       class="form-control @error('phone_number') is-invalid @enderror" 
       id="phone_number"           
-      value="{{ old('phone_number') }}"        
-      required> 
+      value="{{ old('phone_number') }}"> 
+      <div id="emailHelp" class="form-text">Необязательно</div>
       @error('phone_number')
         <div class="invalid-feedback">{{ $message }}</div>   
       @enderror      

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Livewire\IncomingLeads\Index as IncomingLeadsIndex;
 use App\Http\Livewire\Clients\CustomFields as ClientsCustomFields;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\DealController;
@@ -76,4 +77,6 @@ Route::middleware('auth')->group(function () {
             ->middleware('can:edit role')
             ->name('roles.edit');
     });
+
+    Route::get('/incoming_leads', IncomingLeadsIndex::class)->name('incoming_leads.index');
 });

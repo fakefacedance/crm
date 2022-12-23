@@ -47,7 +47,8 @@ return [
 
             'handlers' => [
                 // Your update handlers
-                App\Services\MessageUpdateHandler::class,
+                App\Services\Telegram\StartCommand::class,
+                App\Services\Telegram\MessageUpdateHandler::class,
             ],
         ],
 

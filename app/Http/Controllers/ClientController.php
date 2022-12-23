@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\ClientService;
 use App\Http\Requests\CreateClientRequest;
 use App\Http\Requests\UpdateClientRequest;
 use App\Models\Client;
@@ -100,6 +101,7 @@ class ClientController extends Controller
     {                
         $this->authorize('delete', $id);
 
+        ClientService::deleteTelegramMessages($id);
         Client::find($id)->delete();
 
         return redirect()->route('contacts');

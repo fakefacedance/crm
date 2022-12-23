@@ -144,16 +144,19 @@
           </div>
           @if (isset($deal->client))
             <div class="card">
-              <div class="card-header">
+              <div class="card-header d-flex flex-row">
                 <a href="{{ route('clients.show', $deal->client->id) }}" class="nav-link">
                   {{ $deal->client->full_name }}
-                </a>                
+                </a>
+                @if ($editModeEnabled)
+                  <a href="{{ route('clients.edit', $deal->client->id) }}" class="badge text-bg-primary ms-auto">
+                    <i class="bi bi-pencil"></i>
+                  </a>                    
+                @endif                
               </div>
               <div class="card-body">                
-                <p class="card-text">Телефон: {{ $deal->client->phone_number }}</p>
-                @isset($deal->client->email)
-                  <p class="card-text">Почта: {{ $deal->client->email }}</p>
-                @endisset                
+                <p class="card-text">Телефон: {{ $deal->client->phone_number }}</p>                
+                <p class="card-text">Почта: {{ $deal->client->email }}</p>                
               </div>
             </div>
           @else
@@ -169,7 +172,17 @@
             @endforeach
           </div>              
           @elseif ($selectedTab == 'chat')
-            ...
+          <div style="height: 470px;">
+            @if ($this->clientHasChat())
+              <livewire:incoming-leads.chat :leadId="$this->getTelegramChatId()" wire:key="{{ now() }}">
+            @else
+              <div class="position-relative h-100 fs-5 fw-light">
+                <div class="position-absolute top-50 start-50 translate-middle">
+                  <i class="bi bi-chat-left-dots"></i> Сообщения отсутствуют
+                </div>
+              </div>
+            @endif            
+          </div>          
           @endif
         </div>
       </div>

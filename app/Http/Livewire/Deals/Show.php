@@ -110,4 +110,28 @@ class Show extends Component
         $this->deal->closed_at = null;
         $this->deal->success = false;
     }
+
+    public function clientHasChat()
+    {
+        $customField = DB::table('clients_custom_fields')
+                        ->where('client_id', $this->deal->client->id)
+                        ->where('name', 'Telegram')
+                        ->first();
+                                                
+        return isset($customField);
+    }
+
+    public function getTelegramChatId()
+    {
+        $chatId = DB::table('clients_custom_fields')
+                    ->where('client_id', $this->deal->client->id)
+                    ->where('name', 'Telegram')
+                    ->first()
+                    ->value;
+
+        return DB::table('telegram_messages')
+                ->where('chat_id', $chatId)
+                ->first()
+                ->id;
+    }
 }
