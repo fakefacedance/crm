@@ -13,11 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('tasks', function (Blueprint $table) {
-            $table->text('description')->nullable();
-        });        
-
-        Schema::drop('comments');
+        Schema::table('deals', function (Blueprint $table) {
+            $table->foreignId('client_id')->nullable()->change();
+        });
     }
 
     /**
@@ -27,8 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('tasks', function(Blueprint $table) {
-            $table->dropColumn('description');
+        Schema::table('deals', function (Blueprint $table) {
+            $table->foreignId('client_id')->nullable(false)->change();
         });
     }
 };

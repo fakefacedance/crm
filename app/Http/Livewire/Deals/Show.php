@@ -26,7 +26,8 @@ class Show extends Component
     ];
     protected $listeners = [        
         'tabSelected',
-        'editModeToggle',        
+        'editModeToggle',
+        'refreshParent' => '$refresh',
     ];
 
     public function getFunnelProperty()

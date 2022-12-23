@@ -18,10 +18,10 @@
           <div class="d-flex flex-row justify-content-between align-items-center">
             <ul class="nav nav-pills card-header-pills">              
               <li class="nav-item">
-                <button wire:click="$emit('tabSelected', 'tasks')" class="nav-link @if($selectedTab == 'tasks') active @endif" href="#">Задачи</button>
+                <button wire:click="$emit('tabSelected', 'tasks')" class="nav-link @if($selectedTab == 'tasks') active @endif">Задачи</button>
               </li>                          
               <li class="nav-item">
-                <button wire:click="$emit('tabSelected', 'chat')" class="nav-link disabled">Чат</button>
+                <button wire:click="$emit('tabSelected', 'chat')" class="nav-link @if($selectedTab == 'chat') active @endif @empty($deal->client) disabled @endempty">Чат</button>
               </li>
             </ul>
             @can('update', $deal)
@@ -142,19 +142,23 @@
               @endforeach
             </select>
           </div>
-          <div class="card">
-            <div class="card-header">
-              <a href="{{ route('clients.show', $deal->client->id) }}" class="nav-link">
-                {{ $deal->client->full_name }}
-              </a>                
+          @if (isset($deal->client))
+            <div class="card">
+              <div class="card-header">
+                <a href="{{ route('clients.show', $deal->client->id) }}" class="nav-link">
+                  {{ $deal->client->full_name }}
+                </a>                
+              </div>
+              <div class="card-body">                
+                <p class="card-text">Телефон: {{ $deal->client->phone_number }}</p>
+                @isset($deal->client->email)
+                  <p class="card-text">Почта: {{ $deal->client->email }}</p>
+                @endisset                
+              </div>
             </div>
-            <div class="card-body">                
-              <p class="card-text">Телефон: {{ $deal->client->phone_number }}</p>
-              @isset($deal->client->email)
-                <p class="card-text">Почта: {{ $deal->client->email }}</p>                
-              @endisset                
-            </div>
-          </div>            
+          @else
+            <livewire:deals.add-client :deal="$deal" wire:key="{{ now() }}">
+          @endif
         </div>
 
         <div class="col-8">
