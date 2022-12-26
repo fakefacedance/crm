@@ -7,13 +7,17 @@
     @endcan       
     @foreach ($funnels as $funnel)
       <div class="col-4">        
-        <div class="p-3 border rounded nav-link position-relative">
+        <div class="p-3 border bg-white rounded nav-link position-relative shadow">
           <div class="position-absolute top-0 end-0 me-2 mt-2">
             @can('edit funnel') 
-              <a href="{{ route('funnels.edit', $funnel->id) }}" class="btn btn-primary btn-sm">Изменить</a> 
+              <a href="{{ route('funnels.edit', $funnel->id) }}" class="badge text-bg-primary">
+                <i class="bi bi-pencil"></i>
+              </a> 
             @endcan
             @can('delete funnel')              
-              <button wire:click='deleteFunnel({{$funnel}})' class="btn btn-danger btn-sm">Удалить</button>
+              <button wire:click='deleteFunnel({{$funnel}})' class="badge text-bg-danger border-0">
+                <i class="bi bi-trash"></i>
+              </button>
             @endcan            
           </div>
           <div class="fw-semibold">

@@ -12,19 +12,13 @@ class RolesTab extends Component
     use WithPagination;
     use AuthorizesRequests;
 
-    protected $paginationTheme = 'bootstrap';
-    protected $listeners = ['roles-tab-selected' => 'tabSelected'];
+    protected $paginationTheme = 'bootstrap';    
 
     public function render()
     {
         return view('livewire.settings.roles-tab', [
-            'roles' => Role::paginate(12)
+            'roles' => Role::orderBy('name')->paginate(12, ['*'], 'roles_page')
         ]);
-    }
-    
-    public function tabSelected()
-    {                        
-        $this->resetPage();
     }
 
     public function deleteRole(Role $role)

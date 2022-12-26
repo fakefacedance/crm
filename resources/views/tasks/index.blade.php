@@ -38,7 +38,7 @@
     </div>
   </div>
 
-  <div class="row">
+  <div class="row overflow-auto" style="max-height: 550px;">
     <div class="col-3">
       @foreach ($expiredTasks as $task)      
         <x-task-card :task="$task" />

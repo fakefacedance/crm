@@ -11,7 +11,7 @@
     </select>
   </nav>  
 
-  <div class="overflow-auto">  
+  <div class="overflow-auto" style="max-height: 620px;">
     <div class="d-flex flex-row mt-3 mb-4">
       @foreach ($this->selectedFunnel->stages as $stage)
         <div class="me-3 bg-white" style="min-width: 290px;">

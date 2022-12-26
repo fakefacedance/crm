@@ -12,19 +12,13 @@ class FunnelsTab extends Component
     use WithPagination;
     use AuthorizesRequests;
 
-    protected $paginationTheme = 'bootstrap';
-    protected $listeners = ['funnels-tab-selected' => 'tabSelected'];    
+    protected $paginationTheme = 'bootstrap'; 
     
     public function render()
     {        
         return view('livewire.settings.funnels-tab', [
-            'funnels' => Funnel::paginate(12)
+            'funnels' => Funnel::orderBy('name')->paginate(12, ['*'], 'funnels_page')
         ]);
-    }
-
-    public function tabSelected()
-    {                        
-        $this->resetPage();
     }
 
     public function deleteFunnel(Funnel $funnel)

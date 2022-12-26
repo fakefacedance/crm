@@ -7,6 +7,7 @@ use App\Http\Controllers\DealController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\TaskController;
 use App\Http\Livewire\Analytics\Index as AnalyticsIndex;
+use App\Http\Livewire\Contacts\Index as ContactsIndex;
 use App\Http\Livewire\Deals\CustomFields as DealsCustomFields;
 use App\Http\Livewire\Deals\Index as DealsIndex;
 use App\Http\Livewire\Deals\Show as DealsShow;
@@ -14,7 +15,7 @@ use App\Http\Livewire\Settings\CreateFunnel;
 use App\Http\Livewire\Settings\CreateRole;
 use App\Http\Livewire\Settings\EditFunnel;
 use App\Http\Livewire\Settings\EditRole;
-use App\Http\Livewire\Settings\SettingsPage;
+use App\Http\Livewire\Settings\Index as SettingsIndex;
 use App\Models\Client;
 use App\Models\Staff;
 use App\Providers\RouteServiceProvider;
@@ -45,12 +46,7 @@ Route::middleware('auth')->group(function () {
         ->middleware('can:update,deal')
         ->name('deals.custom_fields');
 
-    Route::get('/contacts', function () {
-        return view('contacts', [
-            'clients' => Client::orderBy('full_name')->paginate(12, ['*'], 'clientsPage'),
-            'staff' => Staff::orderBy('full_name')->paginate(12, ['*'], 'staffPage')        
-        ]);
-    })->name('contacts');
+    Route::get('/contacts', ContactsIndex::class)->name('contacts');
     
     Route::get('/clients/{client}/custom_fields', ClientsCustomFields::class)
         ->middleware('can:update,client')
@@ -62,7 +58,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/analytics', AnalyticsIndex::class)->name('analytics.index');
     
     Route::prefix('settings')->group(function () {
-        Route::get('/', SettingsPage::class)->name('settings');
+        Route::get('/', SettingsIndex::class)->name('settings');
 
         Route::get('/funnels/create', CreateFunnel::class)
             ->middleware('can:add funnel')

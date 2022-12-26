@@ -1,7 +1,7 @@
 <div>  
   @if ($this->apiTokenIsSet())
   <div class="row ms-0 mt-3">
-    <div class="col-6 border rounded bg-white p-3">
+    <div class="col-6 border rounded bg-white p-3 shadow">
       <div class="d-flex flex-row align-items-center">
         <div class="fw-semibold">{{ $this->botName }}</div>
         @if ($this->botIsActive())
