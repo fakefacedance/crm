@@ -15,15 +15,12 @@ class CustomFields extends Component
 
     protected $rules = [
         'inputs.*.name' => 'required',
-        'inputs.*.value' => 'required',
-        'inputs.*.field_type_id' => 'required',
+        'inputs.*.value' => 'required',        
     ];
 
     public function render()
     {
-        return view('livewire.deals.custom-fields', [
-            'customFieldsTypes' => DB::table('custom_fields_types')->get(),
-        ]);
+        return view('livewire.deals.custom-fields');
     }    
 
     public function mount(Deal $deal)
@@ -37,8 +34,7 @@ class CustomFields extends Component
         $this->inputs->push([
             'id' => null,
             'name' => '',
-            'value' => '',
-            'field_type_id' => '',
+            'value' => '',            
             'deal_id' => $this->deal->id
         ]);
     }

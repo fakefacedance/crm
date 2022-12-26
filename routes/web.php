@@ -17,6 +17,7 @@ use App\Http\Livewire\Settings\EditRole;
 use App\Http\Livewire\Settings\SettingsPage;
 use App\Models\Client;
 use App\Models\Staff;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,6 +32,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 require __DIR__.'/auth.php';
+
+Route::redirect('/', RouteServiceProvider::HOME);
 
 Route::middleware('auth')->group(function () {
     Route::resource('tasks', TaskController::class)->except(['show']);

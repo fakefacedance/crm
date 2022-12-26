@@ -13,17 +13,7 @@
     <div class="col">
       <input type="text" id="input_{{$key}}_value" wire:model.defer="inputs.{{$key}}.value" class="form-control @error('inputs.'.$key.'.value') is-invalid @enderror" placeholder="Значение поля" autocomplete="off">
       <span class="invalid-feedback"> @error('inputs.'.$key.'.value') {{ $message }} @enderror </span>
-    </div>
-    <div class="col">
-      <select class="form-select" id="input_{{$key}}_type" wire:model.defer="inputs.{{$key}}.field_type_id">
-        <option value="" disabled selected>Тип поля</option>
-        @foreach ($customFieldsTypes as $type)
-            <option value="{{ $type->id }}">
-                {{ $type->value }}
-            </option>
-        @endforeach
-      </select>  
-    </div>
+    </div>    
     <div class="col">
       <button wire:click="removeInput({{$key}})" class="btn btn-danger">Удалить</button>
     </div>

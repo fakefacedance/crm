@@ -15,8 +15,7 @@ return new class extends Migration
     {
         Schema::create('clients_custom_fields', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('client_id');
-            $table->foreignId('field_type_id');
+            $table->foreignId('client_id');            
             $table->string('name');
             $table->string('value')->nullable();    
         });
