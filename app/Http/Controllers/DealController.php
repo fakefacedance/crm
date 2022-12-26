@@ -7,7 +7,6 @@ use App\Models\Client;
 use App\Models\Deal;
 use App\Models\Funnel;
 use App\Models\Staff;
-use Illuminate\Http\Request;
 
 class DealController extends Controller
 {
@@ -57,7 +56,7 @@ class DealController extends Controller
      */
     public function destroy($id)
     {
-        $this->authorize('delete', $id);
+        $this->authorize('delete', Deal::find($id));
 
         Deal::find($id)->delete();
 

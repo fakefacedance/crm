@@ -4,10 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
-use App\Models\Client;
-use App\Models\Deal;
-use App\Models\Staff;
 use App\Models\Task;
+use App\Services\TaskService;
 
 class TaskController extends Controller
 {
@@ -17,27 +15,8 @@ class TaskController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {             
-        $user = Staff::find(auth()->user()->id);
-
-        if ($user->hasPermissionTo('edit any task')) {
-            $expiredTasks = Task::expired();
-            $tasksToday = Task::today()->where('is_completed', false);
-            $tasksTomorrow = Task::tomorrow()->where('is_completed', false);
-            $defferedTasks = Task::deffered()->where('is_completed', false);
-        } else {
-            $expiredTasks = $user->expiredTasks();
-            $tasksToday = $user->tasksToday()->where('is_completed', false);
-            $tasksTomorrow = $user->tasksTomorrow()->where('is_completed', false);
-            $defferedTasks = $user->defferedTasks()->where('is_completed', false);
-        }        
-
-        return view('tasks.index', [
-            'expiredTasks' => $expiredTasks,
-            'tasksToday' => $tasksToday,
-            'tasksTomorrow' => $tasksTomorrow,
-            'defferedTasks' => $defferedTasks,
-        ]);
+    {                     
+        return view('tasks.index', TaskService::indexViewData());
     }
 
     /**
@@ -47,16 +26,9 @@ class TaskController extends Controller
      */
     public function create()
     {
-        $this->authorize('add task');
+        $this->authorize('add task');        
 
-        $user = Staff::find(auth()->user()->id);
-        $deals = $user->hasPermissionTo('edit any deal') ? Deal::all() : $user->deals;
-
-        return view('tasks.create', [
-            'employees' => Staff::all(),
-            'deals' => $deals,
-            'clients' => Client::all()
-        ]);
+        return view('tasks.create', TaskService::createViewData());
     }
 
     /**
@@ -67,19 +39,7 @@ class TaskController extends Controller
      */
     public function store(CreateTaskRequest $request)
     {        
-        Task::create([
-            'title' => $request->title,
-            'description' => $request->description,
-            'assigner_id' => $request->user()->id,
-            'executor_id' => $request->executor ?: $request->user()->id,
-            'deadline' => $request->deadline,
-            'remind_at' => $request->remind_at,
-            'priority' => $request->priority ?: 0,
-            'client_id' => $request->client,
-            'deal_id' => $request->deal,
-            'is_completed' => 0,
-            'created_at' => now()
-        ]);
+        TaskService::createTask($request);
 
         return redirect()->route('tasks.index');
     }    
@@ -92,17 +52,9 @@ class TaskController extends Controller
      */
     public function edit($id)
     {
-        $this->authorize('update', $id);
+        $this->authorize('update', Task::find($id));
 
-        $user = Staff::find(auth()->user()->id);
-        $deals = $user->hasPermissionTo('edit any deal') ? Deal::all() : $user->deals;
-
-        return view('tasks.edit', [
-            'task' => Task::find($id),
-            'employees' => Staff::all(),
-            'deals' => $deals,
-            'clients' => Client::all()
-        ]);
+        return view('tasks.edit', TaskService::editViewData($id));
     }
 
     /**
@@ -114,16 +66,7 @@ class TaskController extends Controller
      */
     public function update(UpdateTaskRequest $request, $id)
     {
-        Task::where('id', $id)->update([
-            'title' => $request->title,
-            'description' => $request->description,            
-            'executor_id' => $request->executor ?: $request->user()->id,
-            'deadline' => $request->deadline,
-            'remind_at' => $request->remind_at,
-            'priority' => $request->priority ?: 0,
-            'client_id' => $request->client,
-            'deal_id' => $request->deal,
-        ]);
+        TaskService::updateTask($request, $id);
 
         return redirect()->route('tasks.index');
     }
@@ -136,7 +79,7 @@ class TaskController extends Controller
      */
     public function destroy($id)
     {        
-        $this->authorize('delete', $id);
+        $this->authorize('delete', Task::find($id));
 
         Task::find($id)->delete();      
         

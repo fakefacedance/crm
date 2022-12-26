@@ -72,9 +72,8 @@ class Task extends Model
 
     public static function expired()
     {
-        return Task::all()->filter(function ($task, $key) {
-            return $task->isExpired();
-        });
+        return Task::all()
+                    ->filter(fn ($task) => $task->isExpired());
     }
 
     public static function today()
@@ -93,6 +92,7 @@ class Task extends Model
 
     public static function deffered()
     {
-        return Task::where('deadline', '>=', Carbon::tomorrow()->addDay())->get();
+        return Task::where('deadline', '>=', Carbon::tomorrow()->addDay())
+                    ->get();
     }
 }

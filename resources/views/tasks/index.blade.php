@@ -40,7 +40,7 @@
 
   <div class="row overflow-auto" style="max-height: 550px;">
     <div class="col-3">
-      @foreach ($expiredTasks as $task)      
+      @foreach ($expiredTasks as $task)     
         <x-task-card :task="$task" />
       @endforeach
     </div>

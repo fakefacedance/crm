@@ -1,17 +1,19 @@
 <div class="card shadow-sm mt-2 @if($task->priority == 2) border-danger @elseif($task->priority == 1) border-warning @endif">          
-  <div class="card-body position-relative">    
-    <div class="position-absolute top-0 end-0 me-1">
-      <a href="{{ route('tasks.edit', $task->id) }}" class="badge text-bg-primary">
-        <i class="bi bi-pencil"></i>
-      </a>      
-      <form action="{{ route('tasks.destroy', $task->id) }}" method="POST" class="d-inline-block">
-        @csrf
-        @method('DELETE')
-        <button type="submit" class="badge text-bg-danger border-0">
-          <i class="bi bi-trash"></i>
-        </button>
-      </form>            
-    </div>
+  <div class="card-body position-relative"> 
+    @canany(['update', 'delete'], $task)
+      <div class="position-absolute top-0 end-0 me-1">
+        <a href="{{ route('tasks.edit', $task->id) }}" class="badge text-bg-primary">
+          <i class="bi bi-pencil"></i>
+        </a>      
+        <form action="{{ route('tasks.destroy', $task->id) }}" method="POST" class="d-inline-block">
+          @csrf
+          @method('DELETE')
+          <button type="submit" class="badge text-bg-danger border-0">
+            <i class="bi bi-trash"></i>
+          </button>
+        </form>            
+      </div>
+    @endcanany      
     <h5 class="card-title">{{ $task->title }}</h5>
       @if (isset($task->deal))
         <p>

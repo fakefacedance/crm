@@ -52,34 +52,4 @@ class Staff extends Authenticatable
     {
         return $this->hasMany(Task::class, 'executor_id');
     }
-
-    public function expiredTasks()
-    {
-        return $this->tasksAssignedTo->filter(function ($task, $key) {
-            return $task->isExpired();
-        });
-    }
-
-    public function tasksToday()
-    {
-        return $this->tasksAssignedTo->toQuery()
-            ->where('deadline', '>=', now())
-            ->where('deadline', '<', Carbon::tomorrow())
-            ->get();
-    }
-
-    public function tasksTomorrow()
-    {
-        return $this->tasksAssignedTo->toQuery()
-            ->where('deadline', '>=', Carbon::tomorrow())
-            ->where('deadline', '<', Carbon::tomorrow()->addDay())
-            ->get();
-    }
-
-    public function defferedTasks()
-    {
-        return $this->tasksAssignedTo->toQuery()
-            ->where('deadline', '>=', Carbon::tomorrow()->addDay())
-            ->get();
-    }
 }

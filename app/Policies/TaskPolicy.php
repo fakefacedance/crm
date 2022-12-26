@@ -11,14 +11,15 @@ class TaskPolicy
     use HandlesAuthorization;
 
     /**
-     * Determine whether the user can view any models.
+     * Determine whether the user can view the model.
      *
      * @param  \App\Models\Staff  $staff
+     * @param  \App\Models\Task  $task
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(Staff $staff)
+    public function view(Staff $staff, Task $task)
     {
-        //
+        return $task->executor->is($staff);
     }
 
     /**
@@ -30,6 +31,7 @@ class TaskPolicy
      */
     public function update(Staff $staff, Task $task)
     {
+        
         return $task->assigner->is($staff);
     }
 
