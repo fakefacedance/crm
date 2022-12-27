@@ -7,7 +7,7 @@
             <span class="fw-semibold">{{ $message['correspondent_name'] }}</span>
             <div class="d-flex flex-row align-items-end justify-content-between">
               <div class="text-break">{{ $message['text'] }}</div>
-              <small class="fw-light ms-1">{{ Illuminate\Support\Carbon::create($message['sent_at'])->isoFormat('HH:ss') }}</small>
+              <small class="fw-light ms-1">{{ App\Services\DatetimeService::formatted($message['sent_at'], 'HH:ss') }}</small>
             </div>          
           </div>
         </div>      

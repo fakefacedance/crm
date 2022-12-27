@@ -63,51 +63,6 @@ class StaffController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $this->authorize('edit employee');        
-
-        return view('staff.edit', [
-            'employee' => Staff::findOrFail($id),
-            'roles' => Role::all()->pluck('name'),
-        ]);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateEmployeeRequest $request, $id)
-    {
-        $employee = Staff::find($id);
-
-        $employee->update([
-            'full_name' => $request->full_name,
-            'position' => $request->position,
-            'email' => $request->email,            
-            'phone_number' => $request->phone_number,
-        ]);        
-        $employee->syncRoles([$request->role]);
-
-        if (isset($request->password)) {
-            $employee->password = Hash::make($request->password);
-            $employee->save();
-        }
-
-        return redirect()->action(
-            [StaffController::class, 'show'], ['staff' => $id]
-        );
-    }
-
-    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id

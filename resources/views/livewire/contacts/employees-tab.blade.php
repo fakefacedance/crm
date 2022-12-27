@@ -7,7 +7,7 @@
   <div class="row g-3 mt-1">
     @foreach ($employees as $employee)
       <div class="col-4" role="button">
-        <a href="{{ route('staff.show', $employee->id) }}" class="p-3 border rounded nav-link">
+        <a href="{{ route('staff.show', $employee->id) }}" class="bg-white p-3 border rounded nav-link shadow">
           <div class="fw-semibold">
             {{ $employee->full_name }}
           </div>          

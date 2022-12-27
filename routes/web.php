@@ -11,13 +11,12 @@ use App\Http\Livewire\Contacts\Index as ContactsIndex;
 use App\Http\Livewire\Deals\CustomFields as DealsCustomFields;
 use App\Http\Livewire\Deals\Index as DealsIndex;
 use App\Http\Livewire\Deals\Show as DealsShow;
+use App\Http\Livewire\Employees\Edit as EmployeesEdit;
 use App\Http\Livewire\Settings\CreateFunnel;
 use App\Http\Livewire\Settings\CreateRole;
 use App\Http\Livewire\Settings\EditFunnel;
 use App\Http\Livewire\Settings\EditRole;
 use App\Http\Livewire\Settings\Index as SettingsIndex;
-use App\Models\Client;
-use App\Models\Staff;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Route;
 
@@ -48,12 +47,15 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/contacts', ContactsIndex::class)->name('contacts');
     
+    Route::resource('clients', ClientController::class)->except(['index']);
     Route::get('/clients/{client}/custom_fields', ClientsCustomFields::class)
         ->middleware('can:update,client')
         ->name('clients.custom_fields');
         
-    Route::resource('clients', ClientController::class)->except(['index']);    
-    Route::resource('staff', StaffController::class)->except(['index']);
+    Route::resource('staff', StaffController::class)->except(['index', 'edit', 'update']);
+    Route::get('/staff/{employee}/edit', EmployeesEdit::class)
+        ->middleware('can:edit employee')
+        ->name('staff.edit');
 
     Route::get('/analytics', AnalyticsIndex::class)->name('analytics.index');
     
