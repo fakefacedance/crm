@@ -6,7 +6,7 @@ use App\Rules\PhoneNumber;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\Password;
-use App\Models\Staff;
+use App\Models\Employee;
 
 class RegistrationRequest extends FormRequest
 {
@@ -41,8 +41,8 @@ class RegistrationRequest extends FormRequest
     {
         return [
             'full_name' => ['required', 'string', 'max:255'],
-            'phone_number' => ['required', new PhoneNumber, 'unique:'.Staff::class],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.Staff::class],
+            'phone_number' => ['required', new PhoneNumber, 'unique:'.Employee::class],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.Employee::class],
             'password' => ['required', 'confirmed', Password::defaults()],
         ];
     }

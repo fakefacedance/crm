@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\Staff;
+use App\Models\Employee;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class StaffSeeder extends Seeder
+class EmployeeSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,9 +15,9 @@ class StaffSeeder extends Seeder
      */
     public function run()
     {
-        Staff::factory(5)->create();
+        Employee::factory(5)->create();
 
-        Staff::factory()->create([
+        Employee::factory()->create([
             'full_name' => 'Test Manager',
             'email' => 'test@test.com'
         ]);

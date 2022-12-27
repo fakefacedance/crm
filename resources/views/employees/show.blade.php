@@ -3,11 +3,11 @@
   <x-slot:brand>Контакты 🠖 {{ $employee->full_name }}</x-slot:brand>
     
   @can('edit employee')
-    <a href="{{ route('staff.edit', $employee->id) }}" class="btn btn-primary btn-sm mt-3">Изменить</a>
+    <a href="{{ route('employees.edit', $employee->id) }}" class="btn btn-primary btn-sm mt-3">Изменить</a>
   @endcan
   
   @can('delete employee')
-    <form action="{{ route('staff.destroy', $employee->id) }}" method="POST" class="d-inline-block">
+    <form action="{{ route('employees.destroy', $employee->id) }}" method="POST" class="d-inline-block">
       @csrf
       @method('DELETE')
       <button type="submit" class="btn btn-danger btn-sm mt-3">Удалить</button>
@@ -93,7 +93,7 @@
                     @endif                                        
                   </td>
                   <td>
-                    <a href="{{ route('staff.show', $task->assigner_id) }}">{{ $task->assigner->full_name }}</a>
+                    <a href="{{ route('employees.show', $task->assigner_id) }}">{{ $task->assigner->full_name }}</a>
                   </td>
                   <td>{{ \Carbon\Carbon::parse($task->deadline)->format('d.m.Y H:i:s') }}</td>
                   {{-- <td>{{ $task->is_completed ? 'Да' : 'Нет' }}</td> --}}

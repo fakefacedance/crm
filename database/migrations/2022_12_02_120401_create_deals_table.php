@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('title');
             $table->decimal('amount', 10, 2, true);
             $table->foreignId('client_id');
-            $table->foreignId('staff_id');
+            $table->foreignId('employee_id');
             $table->foreignId('funnel_id');
             $table->tinyInteger('stage');
             $table->dateTime('created_at');

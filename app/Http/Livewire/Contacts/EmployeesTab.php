@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Contacts;
 
-use App\Models\Staff;
+use App\Models\Employee;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -15,7 +15,7 @@ class EmployeesTab extends Component
     public function render()
     {
         return view('livewire.contacts.employees-tab', [
-            'employees' => Staff::orderBy('full_name')->paginate(12, ['*'], 'employees_page')
+            'employees' => Employee::orderBy('full_name')->paginate(12, ['*'], 'employees_page')
         ]);
     }
 }

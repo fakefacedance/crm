@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::table('tasks', function (Blueprint $table) {
-            $table->foreign('assigner_id')->references('id')->on('staff');
-            $table->foreign('executor_id')->references('id')->on('staff');
+            $table->foreign('assigner_id')->references('id')->on('employees');
+            $table->foreign('executor_id')->references('id')->on('employees');
             $table->foreign('client_id')->references('id')->on('clients');
             $table->foreign('deal_id')->references('id')->on('deals');
         });

@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Staff;
+use App\Models\Employee;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Carbon;
@@ -17,7 +17,7 @@ class CreateAdminSeeder extends Seeder
      */
     public function run()
     {
-        $admin = Staff::create([
+        $admin = Employee::create([
             'full_name' => 'Пупкин Василий Админович',
             'position' => 'Администратор',
             'email' => 'admin@test.com',

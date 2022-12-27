@@ -131,7 +131,7 @@
           <div class="mb-3">
             <label for="employee">Ответственный</label>
             <select 
-            wire:model="deal.staff_id"
+            wire:model="deal.employee_id"
             name="employee" 
             class="form-select form-select-sm"
             @if (!$editModeEnabled) disabled @endif>      

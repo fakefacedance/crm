@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Staff;
+use App\Models\Employee;
 use App\Rules\PhoneNumber;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Password;
@@ -28,8 +28,8 @@ class CreateEmployeeRequest extends FormRequest
     {
         return [
             'full_name' => ['required', 'string', 'max:255'],
-            'phone_number' => ['required', new PhoneNumber, 'unique:'.Staff::class],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.Staff::class],
+            'phone_number' => ['required', new PhoneNumber, 'unique:'.Employee::class],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.Employee::class],
             'password' => ['required', 'confirmed', Password::defaults()],
         ];
     }

@@ -4,7 +4,7 @@ use App\Http\Livewire\IncomingLeads\Index as IncomingLeadsIndex;
 use App\Http\Livewire\Clients\CustomFields as ClientsCustomFields;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\DealController;
-use App\Http\Controllers\StaffController;
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\TaskController;
 use App\Http\Livewire\Analytics\Index as AnalyticsIndex;
 use App\Http\Livewire\Contacts\Index as ContactsIndex;
@@ -52,10 +52,10 @@ Route::middleware('auth')->group(function () {
         ->middleware('can:update,client')
         ->name('clients.custom_fields');
         
-    Route::resource('staff', StaffController::class)->except(['index', 'edit', 'update']);
-    Route::get('/staff/{employee}/edit', EmployeesEdit::class)
+    Route::resource('employees', EmployeeController::class)->except(['index', 'edit', 'update']);
+    Route::get('/employees/{employee}/edit', EmployeesEdit::class)
         ->middleware('can:edit employee')
-        ->name('staff.edit');
+        ->name('employees.edit');
 
     Route::get('/analytics', AnalyticsIndex::class)->name('analytics.index');
     

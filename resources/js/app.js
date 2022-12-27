@@ -13,7 +13,7 @@ const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstra
 document.addEventListener("DOMContentLoaded", function(event) {
     var userId = document.querySelector("meta[name='user_id']").getAttribute('content')
 
-    window.Echo.private(`App.Models.Staff.${userId}`)
+    window.Echo.private(`App.Models.Employee.${userId}`)
         .notification((notification) => {
             handleNotification(notification)              
           });

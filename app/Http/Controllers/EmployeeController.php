@@ -3,12 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateEmployeeRequest;
-use App\Http\Requests\UpdateEmployeeRequest;
-use App\Models\Staff;
+use App\Models\Employee;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 
-class StaffController extends Controller
+class EmployeeController extends Controller
 {
     /**
      * Show the form for creating a new resource.
@@ -19,7 +18,7 @@ class StaffController extends Controller
     {
         $this->authorize('add employee');
 
-        return view('staff.create', [
+        return view('employees.create', [
             'roles' => Role::all()->pluck('name'),
         ]);
     }
@@ -32,7 +31,7 @@ class StaffController extends Controller
      */
     public function store(CreateEmployeeRequest $request)
     {        
-        $user = Staff::create([
+        $user = Employee::create([
             'full_name' => $request->full_name,
             'position' => $request->position,
             'phone_number' => $request->phone_number,            
@@ -53,9 +52,9 @@ class StaffController extends Controller
      */
     public function show($id)
     {
-        $employee = Staff::find($id);
+        $employee = Employee::find($id);
 
-        return view('staff.show', [
+        return view('employees.show', [
             'employee' => $employee,
             'tasks' => $employee->tasksAssignedTo()->paginate(10),
             'deals' => $employee->deals()->paginate(8)
@@ -70,7 +69,7 @@ class StaffController extends Controller
      */
     public function destroy($id)
     {
-        $employee = Staff::find($id);
+        $employee = Employee::find($id);
 
         $this->authorize('delete', $employee);
 

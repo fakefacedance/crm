@@ -3,7 +3,7 @@
 namespace App\Policies;
 
 use App\Models\Client;
-use App\Models\Staff;
+use App\Models\Employee;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class ClientPolicy
@@ -13,15 +13,15 @@ class ClientPolicy
     /**
      * Determine whether the user can update the model.
      *
-     * @param  \App\Models\Staff  $staff
+     * @param  \App\Models\Employee  $employee
      * @param  \App\Models\Client  $client
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(Staff $staff, Client $client)
+    public function update(Employee $employee, Client $client)
     {
-        // if $staff has a deal or task where $client appears
-        $hasDeals = $client->deals->where('staff_id', $staff->id)->contains('client_id', $client->id);
-        $hasTasks = $client->tasks->where('executor_id', $staff->id)->contains('client_id', $client->id);
+        // if $employee has a deal or task where $client appears
+        $hasDeals = $client->deals->where('employee_id', $employee->id)->contains('client_id', $client->id);
+        $hasTasks = $client->tasks->where('executor_id', $employee->id)->contains('client_id', $client->id);
 
         return $hasDeals || $hasTasks;
     }
@@ -29,11 +29,11 @@ class ClientPolicy
     /**
      * Determine whether the user can delete the model.
      *
-     * @param  \App\Models\Staff  $staff     
+     * @param  \App\Models\Employee  $employee     
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(Staff $staff)
+    public function delete(Employee $employee)
     {
-        return $staff->hasRole('admin');
+        return $employee->hasRole('admin');
     }
 }

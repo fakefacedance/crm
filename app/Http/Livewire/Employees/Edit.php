@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Employees;
 
-use App\Models\Staff;
+use App\Models\Employee;
 use App\Rules\PhoneNumber;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Hash;
@@ -15,7 +15,7 @@ class Edit extends Component
 {
     use AuthorizesRequests;
     
-    public Staff $employee;
+    public Employee $employee;
         
     public $password;
     public $password_confirmation;
@@ -26,15 +26,15 @@ class Edit extends Component
         return [
             'employee.full_name' => ['required', 'string', 'max:255'],
             'employee.position' => ['required', 'string', 'max:255'],
-            'employee.phone_number' => ['required', new PhoneNumber, Rule::unique(Staff::class, 'phone_number')->ignore($this->employee->id)],
-            'employee.email' => ['required', 'string', 'email', 'max:255', Rule::unique(Staff::class, 'email')->ignore($this->employee->id)],
+            'employee.phone_number' => ['required', new PhoneNumber, Rule::unique(Employee::class, 'phone_number')->ignore($this->employee->id)],
+            'employee.email' => ['required', 'string', 'email', 'max:255', Rule::unique(Employee::class, 'email')->ignore($this->employee->id)],
             'password' => ['nullable', 'confirmed', Password::defaults()],    
             'roles.*.name' => ['required', 'exists:'.Role::class.',name'],
             'roles.*.checked' => ['boolean'],
         ];
     }
 
-    public function mount(Staff $employee)
+    public function mount(Employee $employee)
     {        
         $this->employee = $employee;
         $this->roles = Role::all('name');
@@ -61,6 +61,6 @@ class Edit extends Component
         $this->employee->save();
         $this->employee->syncRoles($this->roles->where('checked', true)->pluck('name')->toArray());
 
-        return redirect()->route('staff.show', $this->employee->id);
+        return redirect()->route('employees.show', $this->employee->id);
     }
 }

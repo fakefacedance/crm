@@ -4,7 +4,7 @@ namespace App\Http\Livewire\Deals;
 
 use App\Models\Deal;
 use App\Models\Funnel;
-use App\Models\Staff;
+use App\Models\Employee;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
@@ -22,7 +22,7 @@ class Show extends Component
     protected $rules = [        
         'deal.title' => ['required', 'max:255'],        
         'deal.amount' => ['required', 'min:0', 'max:99999999.99'],
-        'deal.staff_id' => ['required', 'exists:'.Staff::class.',id'],
+        'deal.employee_id' => ['required', 'exists:'.Employee::class.',id'],
     ];
     protected $listeners = [        
         'tabSelected',
@@ -49,7 +49,7 @@ class Show extends Component
         return view('livewire.deals.show', [
             'funnels' => Funnel::all(),
             'customFields' => $customFields,
-            'employees' => Staff::all(),
+            'employees' => Employee::all(),
         ]);
     }    
 

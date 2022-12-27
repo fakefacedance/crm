@@ -83,7 +83,7 @@
                   <td>{{ $deal->funnel->name }}</td>
                   <td>{{ $deal->getStage()->name }}</td>
                   <td>
-                    <a href="{{ route('staff.show', $deal->staff->id) }}">{{ $deal->staff->full_name }}</a>                    
+                    <a href="{{ route('employees.show', $deal->employee->id) }}">{{ $deal->employee->full_name }}</a>                    
                   </td>
                   <td>{{ $deal->amount }} ₽</td>
                 </tr>

@@ -6,7 +6,7 @@ use App\Http\Requests\CreateTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
 use App\Models\Client;
 use App\Models\Deal;
-use App\Models\Staff;
+use App\Models\Employee;
 use App\Models\Task;
 
 class TaskService
@@ -27,11 +27,11 @@ class TaskService
 
     public static function createViewData()
     {
-        $user = Staff::find(auth()->user()->id);
+        $user = Employee::find(auth()->user()->id);
         $deals = $user->hasPermissionTo('edit any deal') ? Deal::all() : $user->deals;
         
         return [
-            'employees' => Staff::all(),
+            'employees' => Employee::all(),
             'deals' => $deals,
             'clients' => Client::all()
         ];
@@ -56,12 +56,12 @@ class TaskService
 
     public static function editViewData($taskId)
     {
-        $user = Staff::find(auth()->user()->id);
+        $user = Employee::find(auth()->user()->id);
         $deals = $user->hasPermissionTo('edit any deal') ? Deal::all() : $user->deals;
         
         return  [
             'task' => Task::find($taskId),
-            'employees' => Staff::all(),
+            'employees' => Employee::all(),
             'deals' => $deals,
             'clients' => Client::all()
         ];

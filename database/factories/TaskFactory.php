@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Client;
 use App\Models\Deal;
-use App\Models\Staff;
+use App\Models\Employee;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -22,7 +22,7 @@ class TaskFactory extends Factory
         $taskRelatesToDeal = fake()->boolean(70);
         $taskRelatesToClient = fake()->boolean(80);
         $deal = $taskRelatesToDeal ? Deal::inRandomOrder()->first() : null;
-        $assignerId = Staff::permission('assign to task')->first()->id;
+        $assignerId = Employee::permission('assign to task')->first()->id;
         
         if (is_null($deal)) {
             $createdAt = fake()->dateTimeBetween('-5 years', timezone:'Europe/Moscow');
@@ -36,7 +36,7 @@ class TaskFactory extends Factory
             'title' => fake()->word(), 
             'priority' => fake()->numberBetween(0, 2),
             'assigner_id' => $assignerId,
-            'executor_id' => Staff::where('id', '<>', $assignerId)->inRandomOrder()->first()->id,
+            'executor_id' => Employee::where('id', '<>', $assignerId)->inRandomOrder()->first()->id,
             'deal_id' => $deal ? $deal->id : null,
             'client_id' => $clientId,
             'created_at' => $createdAt,

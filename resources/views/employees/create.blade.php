@@ -2,7 +2,7 @@
   <x-slot:title>Новый сотрудник</x-slot:title>
   <x-slot:brand>Контакты 🠖 Новый сотрудник</x-slot:brand>
 
-  <form action="{{ route('staff.store')}}" method="POST" class="mt-3">
+  <form action="{{ route('employees.store')}}" method="POST" class="mt-3">
     @csrf
 
     <div class="mb-3">

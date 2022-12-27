@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Deal;
-use App\Models\Staff;
+use App\Models\Employee;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -18,9 +18,9 @@ class DealsSeeder extends Seeder
     {
         Deal::factory(10)->create();
 
-        $testManager = Staff::where('full_name', 'Test Manager')->first();
+        $testManager = Employee::where('full_name', 'Test Manager')->first();
         Deal::factory(10)->create([
-            'staff_id' => $testManager->id
+            'employee_id' => $testManager->id
         ]);
     }
 }

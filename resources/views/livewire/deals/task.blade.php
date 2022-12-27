@@ -38,7 +38,7 @@
           @endisset          
           <p>
             <span class="fw-semibold">Назначил:</span>            
-            <a href="{{ route('staff.show', $task->assigner->id) }}">{{ $task->assigner->full_name }}</a>
+            <a href="{{ route('employees.show', $task->assigner->id) }}">{{ $task->assigner->full_name }}</a>
           </p>
           <p>
             <span class="fw-semibold">Крайний срок:</span>            

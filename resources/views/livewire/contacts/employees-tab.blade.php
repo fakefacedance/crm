@@ -1,13 +1,13 @@
 <div>
   @can('add employee')
   <div class="mt-3">
-    <a href="{{ route('staff.create') }}" class="btn btn-success btn-sm">+ Добавить</a>
+    <a href="{{ route('employees.create') }}" class="btn btn-success btn-sm">+ Добавить</a>
   </div>    
   @endcan
   <div class="row g-3 mt-1">
     @foreach ($employees as $employee)
       <div class="col-4" role="button">
-        <a href="{{ route('staff.show', $employee->id) }}" class="bg-white p-3 border rounded nav-link shadow">
+        <a href="{{ route('employees.show', $employee->id) }}" class="bg-white p-3 border rounded nav-link shadow">
           <div class="fw-semibold">
             {{ $employee->full_name }}
           </div>          

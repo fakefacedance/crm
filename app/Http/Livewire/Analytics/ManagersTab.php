@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Analytics;
 
-use App\Models\Staff;
+use App\Models\Employee;
 use Illuminate\Support\Carbon;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -25,7 +25,7 @@ class ManagersTab extends Component
     public function render()
     {
         return view('livewire.analytics.managers-tab', [
-            'managers' => Staff::paginate(10)
+            'managers' => Employee::paginate(10)
         ]);
     }
 

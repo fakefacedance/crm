@@ -65,7 +65,7 @@ class TelegramMessageListener
         $deals = Client::find($clientId)->deals;
         
         if ($deals->isNotEmpty()) {
-            $deals->first()->staff->notify(new MessageNotification($message));
+            $deals->first()->employee->notify(new MessageNotification($message));
         }
     }
 }

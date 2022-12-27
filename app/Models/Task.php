@@ -28,12 +28,12 @@ class Task extends Model
 
     public function assigner()
     {
-        return $this->belongsTo(Staff::class, 'assigner_id');
+        return $this->belongsTo(Employee::class, 'assigner_id');
     }
 
     public function executor()
     {
-        return $this->belongsTo(Staff::class, 'executor_id');
+        return $this->belongsTo(Employee::class, 'executor_id');
     }
 
     public function client()

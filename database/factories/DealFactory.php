@@ -5,7 +5,7 @@ namespace Database\Factories;
 use App\Models\Client;
 use App\Models\Funnel;
 use App\Models\FunnelStage;
-use App\Models\Staff;
+use App\Models\Employee;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -30,7 +30,7 @@ class DealFactory extends Factory
             'created_at' => $createdAt,
             'closed_at' => $funnelStage->index < 4 ? null : fake()->dateTimeInInterval($createdAt, '+ 6 months', 'Europe/Moscow'),
             'client_id' => Client::inRandomOrder()->first()->id,
-            'staff_id' => Staff::inRandomOrder()->first()->id,
+            'employee_id' => Employee::inRandomOrder()->first()->id,
             'funnel_id' => Funnel::first()->id
         ];
     }

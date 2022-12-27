@@ -3,7 +3,7 @@
 namespace App\Policies;
 
 use App\Models\Deal;
-use App\Models\Staff;
+use App\Models\Employee;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class DealPolicy
@@ -13,35 +13,35 @@ class DealPolicy
     /**
      * Determine whether the user can create models.
      *
-     * @param  \App\Models\Staff  $staff
+     * @param  \App\Models\Employee  $employee
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(Staff $staff)
+    public function create(Employee $employee)
     {
-        return $staff->hasPermissionTo('add deal');
+        return $employee->hasPermissionTo('add deal');
     }
 
     /**
      * Determine whether the user can update the model.
      *
-     * @param  \App\Models\Staff  $staff
+     * @param  \App\Models\Employee  $employee
      * @param  \App\Models\Deal  $deal
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(Staff $staff, Deal $deal)
+    public function update(Employee $employee, Deal $deal)
     {
-        return $deal->staff->is($staff);
+        return $deal->employee->is($employee);
     }
 
     /**
      * Determine whether the user can delete the model.
      *
-     * @param  \App\Models\Staff  $staff
+     * @param  \App\Models\Employee  $employee
      * @param  \App\Models\Deal  $deal
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(Staff $staff, Deal $deal)
+    public function delete(Employee $employee, Deal $deal)
     {
-        return $deal->staff->is($staff);
+        return $deal->employee->is($employee);
     }    
 }

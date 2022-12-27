@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::table('deals', function (Blueprint $table) {
             $table->foreign('client_id')->references('id')->on('clients');
-            $table->foreign('staff_id')->references('id')->on('staff');
+            $table->foreign('employee_id')->references('id')->on('employees');
             $table->foreign('funnel_id')->references('id')->on('funnels');
         });
     }
@@ -29,7 +29,7 @@ return new class extends Migration
     {
         Schema::table('deals', function (Blueprint $table) {
             $table->dropForeign('client_id');
-            $table->dropForeign('staff_id');
+            $table->dropForeign('employee_id');
             $table->dropForeign('funnel_id');
         });        
     }

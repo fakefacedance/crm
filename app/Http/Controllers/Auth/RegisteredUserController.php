@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\RegistrationRequest;
-use App\Models\Staff;
+use App\Models\Employee;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Carbon;
@@ -33,7 +33,7 @@ class RegisteredUserController extends Controller
      */
     public function store(RegistrationRequest $request)
     {                   
-        $user = Staff::create([
+        $user = Employee::create([
             'full_name' => $request->full_name,
             'position' => 'Менеджер',
             'phone_number' => $request->phone_number,            

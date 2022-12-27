@@ -14,7 +14,7 @@ class Deal extends Model
     protected $fillable = [
         'title',
         'client_id',
-        'staff_id',
+        'employee_id',
         'funnel_id',
         'stage',
         'amount',
@@ -22,9 +22,9 @@ class Deal extends Model
         'closed_at'
     ];
 
-    public function staff()
+    public function employee()
     {
-        return $this->belongsTo(Staff::class);
+        return $this->belongsTo(Employee::class);
     }
 
     public function client()

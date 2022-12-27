@@ -6,7 +6,7 @@ use App\Http\Requests\CreateDealRequest;
 use App\Models\Client;
 use App\Models\Deal;
 use App\Models\Funnel;
-use App\Models\Staff;
+use App\Models\Employee;
 
 class DealController extends Controller
 {
@@ -22,7 +22,7 @@ class DealController extends Controller
 
         return view('deals.create', [
             'clients' => Client::all(),
-            'employees' => Staff::all(),
+            'employees' => Employee::all(),
             'funnels' => Funnel::all()
         ]);
     }
@@ -38,7 +38,7 @@ class DealController extends Controller
         Deal::create([
             'title' => $request->title,
             'client_id' => $request->client,
-            'staff_id' => $request->employee,
+            'employee_id' => $request->employee,
             'funnel_id' => $request->funnel,
             'stage' => 0,
             'amount' => $request->amount,

@@ -2,7 +2,7 @@
 
 namespace App\Notifications;
 
-use App\Models\Staff;
+use App\Models\Employee;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Notifications\Messages\BroadcastMessage;
@@ -38,7 +38,7 @@ class TaskNotification extends Notification implements ShouldBroadcast
     {                
         return new BroadcastMessage([
             'type' => 'taskNotification',
-            'employeeName' => Staff::find($notifiable->id)->full_name,
+            'employeeName' => Employee::find($notifiable->id)->full_name,
             'taskTitle' => $this->taskTitle,
         ]);
     }
