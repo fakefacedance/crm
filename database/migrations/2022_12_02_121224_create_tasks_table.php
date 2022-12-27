@@ -16,13 +16,15 @@ return new class extends Migration
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->foreignId('assigner_id');
-            $table->foreignId('executor_id');
+            $table->string('description')->nullable();
+            $table->foreignId('assigner_id')->constrained('employees', 'id');
+            $table->foreignId('executor_id')->constrained('employees', 'id');
             $table->dateTime('deadline');
+            $table->dateTime('remind_at')->nullable();
             $table->tinyInteger('priority');
-            $table->foreignId('client_id')->nullable();
-            $table->foreignId('deal_id')->nullable();
-            $table->boolean('is_completed');
+            $table->foreignId('client_id')->nullable()->constrained();
+            $table->foreignId('deal_id')->nullable()->constrained()->cascadeOnDelete();
+            $table->boolean('is_completed')->default(false);
             $table->dateTime('created_at');
         });
     }

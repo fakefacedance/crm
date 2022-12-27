@@ -17,12 +17,13 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->decimal('amount', 10, 2, true);
-            $table->foreignId('client_id');
-            $table->foreignId('employee_id');
-            $table->foreignId('funnel_id');
+            $table->foreignId('client_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('employee_id')->constrained();
+            $table->foreignId('funnel_id')->constrained();
             $table->tinyInteger('stage');
             $table->dateTime('created_at');
-            $table->dateTime('closed_at')->nullable();            
+            $table->dateTime('closed_at')->nullable();   
+            $table->boolean('success')->default(false);
         });
     }
 

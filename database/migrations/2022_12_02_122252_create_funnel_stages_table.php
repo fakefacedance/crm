@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('funnel_stages', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('funnel_id');
+            $table->foreignId('funnel_id')->constrained()->cascadeOnDelete();
             $table->string('name');
             $table->tinyInteger('index');            
         });

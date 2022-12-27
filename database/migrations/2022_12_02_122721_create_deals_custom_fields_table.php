@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('deals_custom_fields', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('deal_id');
+            $table->foreignId('deal_id')->constrained()->cascadeOnDelete();
             $table->string('name');
-            $table->string('value')->nullable();            
+            $table->string('value')->nullable();
         });
     }
 

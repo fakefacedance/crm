@@ -16,9 +16,10 @@ return new class extends Migration
         Schema::create('telegram_messages', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('chat_id');
-            $table->string('client_name');
+            $table->string('correspondent_name');
+            $table->string('correspondent_type');
             $table->string('text', 4096);
-            $table->foreignId('deal_id')->nullable()->constrained()->cascadeOnDelete();
+            $table->dateTime('sent_at');            
         });
     }
 

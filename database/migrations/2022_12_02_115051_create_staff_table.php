@@ -21,6 +21,7 @@ return new class extends Migration
             $table->char('phone_number', 17);
             $table->string('password');            
             $table->dateTime('created_at');
+            $table->rememberToken();
         });
     }
 
