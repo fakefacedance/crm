@@ -13,9 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('funnels', function (Blueprint $table) {
+        Schema::create('clients', function (Blueprint $table) {
             $table->id();
-            $table->string('name');            
+            $table->string('full_name');
+            $table->string('email')->nullable();
+            $table->char('phone_number', 17)->nullable();
+            $table->dateTime('created_at');
         });
     }
 
@@ -26,6 +29,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('funnels');
+        Schema::disableForeignKeyConstraints();
+        Schema::dropIfExists('clients');
+        Schema::enableForeignKeyConstraints();
     }
 };

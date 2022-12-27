@@ -19,10 +19,12 @@ class DatabaseSeeder extends Seeder
             CreateAdminSeeder::class,
             EmployeeSeeder::class,
             ClientsSeeder::class,
+            ClientsCustomFieldsSeeder::class,
             DefaultFunnelSeeder::class,
             DealsSeeder::class,
+            DealsCustomFieldsSeeder::class,
             TasksSeeder::class,
-            CustomFieldsSeeder::class,
+            TelegramChatSeeder::class,
         ]);
     }
 }

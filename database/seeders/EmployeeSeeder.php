@@ -15,11 +15,11 @@ class EmployeeSeeder extends Seeder
      */
     public function run()
     {
-        Employee::factory(5)->create();
+        Employee::factory()->count(5)->create();
 
         Employee::factory()->create([
             'full_name' => 'Test Manager',
-            'email' => 'test@test.com'
+            'email' => 'manager@test.com'
         ]);
     }
 }

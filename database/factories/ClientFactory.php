@@ -19,8 +19,8 @@ class ClientFactory extends Factory
         return [
             'full_name' => fake()->name(),
             'email' => fake()->unique()->optional(weight:0.6)->email(),
-            'phone_number' => fake()->unique()->phoneNumber(),
-            'created_at' => fake()->dateTimeBetween(startDate:'-5 years', timezone:'Europe/Moscow'),
+            'phone_number' => fake()->unique()->optional(weight:0.9)->phoneNumber(),
+            'created_at' => fake()->dateTimeBetween(startDate:'-1 years', timezone:'Europe/Moscow'),
         ];
     }
 }

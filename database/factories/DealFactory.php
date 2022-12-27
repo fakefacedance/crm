@@ -21,15 +21,22 @@ class DealFactory extends Factory
     public function definition()
     {
         $funnelStage = Funnel::first()->stages()->inRandomOrder()->first();
-        $createdAt = fake()->dateTimeBetween(startDate:'-5 years', timezone:'Europe/Moscow');
+        $createdAt = fake()->dateTimeBetween(startDate:'-1 years', timezone:'Europe/Moscow');
+        $closedAt = fake()->optional(0.3)->dateTimeInInterval($createdAt, '+ 2 months', 'Europe/Moscow');
+
+        $clientId = Client::inRandomOrder()->first()->id;
+        if ($funnelStage->index === 0) {
+            $clientId = fake()->boolean(95) ?: null;
+        }
 
         return [
-            'title' => fake()->word(),
-            'amount' => fake()->randomFloat(nbMaxDecimals:2, max:999999),
+            'title' => fake()->words(3, true),
+            'amount' => fake()->randomFloat(nbMaxDecimals:2, max:99999),
             'stage' => $funnelStage->index,
             'created_at' => $createdAt,
-            'closed_at' => $funnelStage->index < 4 ? null : fake()->dateTimeInInterval($createdAt, '+ 6 months', 'Europe/Moscow'),
-            'client_id' => Client::inRandomOrder()->first()->id,
+            'closed_at' => $closedAt,
+            'success' => !is_null($closedAt) ? fake()->boolean(90) : false,
+            'client_id' => $clientId,
             'employee_id' => Employee::inRandomOrder()->first()->id,
             'funnel_id' => Funnel::first()->id
         ];

@@ -7,7 +7,7 @@
   <div class="row g-3 mt-1">
     @foreach ($clients as $client)
       <div class="col-4">
-        <a href="{{ route('clients.show', $client->id) }}" class="bg-white p-3 border rounded nav-link shadow">
+        <a href="{{ route('clients.show', $client->id) }}" class="bg-white p-3 border rounded nav-link shadow" style="min-height: 82px;">
           <div class="fw-semibold">
             {{ $client->full_name }}
           </div>          

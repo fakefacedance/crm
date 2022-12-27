@@ -24,8 +24,7 @@ class DefaultFunnelSeeder extends Seeder
             'Лид', 
             'Потребность выявлена', 
             'Договор и счет отправлены',
-            'Успешно реализовано', 
-            'Закрыто и не реализовано'
+            'Счет оплачен',
         ];
 
         foreach ($funnelStages as $key => $value) {
