@@ -14,20 +14,11 @@ class EditFunnel extends Component
     public $funnelName;
     public $removedStages = [];
 
-    protected function rules()
-    {
-        return [
-            'funnelName' => 'required',
-            'inputs.*.name' => 'required',
-            'inputs.*.index' => ['required', 'distinct', 'numeric', 'max:'. $this->inputs->count() - 1],
-        ];
-    }
-
     public function mount(Funnel $funnel)
     {
         $this->funnel = $funnel;
         $this->funnelName = $funnel->name;
-        $this->inputs = collect($funnel->stages)->sortBy('index')->values();                
+        $this->inputs = collect($funnel->stages)->sortBy('index')->values();
     }
 
     public function render()
@@ -55,13 +46,22 @@ class EditFunnel extends Component
     }
 
     public function update()
-    {               
-        $this->validate();        
+    {
+        $this->validate();
 
         $this->updateFunnelModel();
-        $this->updateFunnelStages();                
+        $this->updateFunnelStages();
 
         return redirect()->route('settings');
+    }
+
+    protected function rules()
+    {
+        return [
+            'funnelName' => 'required',
+            'inputs.*.name' => 'required',
+            'inputs.*.index' => ['required', 'distinct', 'numeric', 'max:' . $this->inputs->count() - 1],
+        ];
     }
 
     private function updateFunnelModel()

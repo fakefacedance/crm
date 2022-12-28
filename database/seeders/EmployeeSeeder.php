@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Employee;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class EmployeeSeeder extends Seeder
@@ -19,7 +18,7 @@ class EmployeeSeeder extends Seeder
 
         Employee::factory()->create([
             'full_name' => 'Test Manager',
-            'email' => 'manager@test.com'
+            'email' => 'manager@test.com',
         ]);
     }
 }

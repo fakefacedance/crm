@@ -19,7 +19,7 @@ class Deal extends Model
         'stage',
         'amount',
         'created_at',
-        'closed_at'
+        'closed_at',
     ];
 
     public function employee()

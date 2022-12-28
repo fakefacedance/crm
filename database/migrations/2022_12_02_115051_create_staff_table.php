@@ -6,11 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('employees', function (Blueprint $table) {
@@ -19,17 +14,12 @@ return new class extends Migration
             $table->string('position');
             $table->string('email');
             $table->char('phone_number', 17);
-            $table->string('password');            
+            $table->string('password');
             $table->dateTime('created_at');
             $table->rememberToken();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::disableForeignKeyConstraints();

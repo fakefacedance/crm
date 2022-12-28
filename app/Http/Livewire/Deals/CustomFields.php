@@ -10,32 +10,32 @@ use Livewire\Component;
 class CustomFields extends Component
 {
     public Deal $deal;
-    public Collection $inputs;    
+    public Collection $inputs;
     public $removed = [];
 
     protected $rules = [
         'inputs.*.name' => 'required',
-        'inputs.*.value' => 'required',        
+        'inputs.*.value' => 'required',
     ];
 
     public function render()
     {
         return view('livewire.deals.custom-fields');
-    }    
+    }
 
     public function mount(Deal $deal)
-    {                      
+    {
         $this->deal = $deal;
         $this->inputs = collect(DB::table('deals_custom_fields')->where('deal_id', $deal->id)->get());
     }
 
     public function addInput()
-    {        
+    {
         $this->inputs->push([
             'id' => null,
             'name' => '',
-            'value' => '',            
-            'deal_id' => $this->deal->id
+            'value' => '',
+            'deal_id' => $this->deal->id,
         ]);
     }
 
@@ -45,16 +45,16 @@ class CustomFields extends Component
             $this->removed[] = $this->inputs[$key]['id'];
         }
 
-        $this->inputs->pull($key);        
+        $this->inputs->pull($key);
     }
 
     public function confirm()
-    {            
-        $this->validate();        
+    {
+        $this->validate();
 
-        $this->updateDb();     
-        
-        return redirect()->route('deals.show', $this->deal->id);        
+        $this->updateDb();
+
+        return redirect()->route('deals.show', $this->deal->id);
     }
 
     private function updateDb()
@@ -65,5 +65,5 @@ class CustomFields extends Component
             DB::table('deals_custom_fields')->delete($id);
         }
         $this->removed = [];
-    }    
+    }
 }

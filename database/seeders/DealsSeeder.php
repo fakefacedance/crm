@@ -20,11 +20,11 @@ class DealsSeeder extends Seeder
         $testManager = Employee::where('full_name', 'Test Manager')->first();
         Deal::factory()->count(5)->create([
             'created_at' => now()->subWeek(),
-            'employee_id' => $testManager->id
+            'employee_id' => $testManager->id,
         ]);
         Deal::factory()->count(5)->create([
             'created_at' => now()->subMonth(),
-            'employee_id' => $testManager->id
+            'employee_id' => $testManager->id,
         ]);
     }
 }

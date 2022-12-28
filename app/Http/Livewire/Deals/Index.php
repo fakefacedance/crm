@@ -15,9 +15,9 @@ class Index extends Component
     }
 
     public function render()
-    {        
+    {
         return view('livewire.deals.index', [
-            'funnels' => Funnel::all()
+            'funnels' => Funnel::all(),
         ]);
     }
 
@@ -31,7 +31,7 @@ class Index extends Component
     public function getSelectedFunnelProperty()
     {
         return Funnel::find($this->selectedFunnelId);
-    }    
+    }
 
     public function getSuccessfulDealsProperty()
     {

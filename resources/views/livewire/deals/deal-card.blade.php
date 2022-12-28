@@ -8,7 +8,7 @@
     </object>
   @else
     <div class="text-danger">Клиент не привязан</div>
-  @endif       
+  @endif
   <div class="d-flex flex-row justify-content-end">                
     <div class="fw-light">{{ $this->amountFormatted }} ₽</div>
   </div>        

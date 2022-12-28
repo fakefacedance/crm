@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\ClientService;
 use App\Http\Requests\CreateClientRequest;
 use App\Http\Requests\UpdateClientRequest;
 use App\Models\Client;
+use App\Services\ClientService;
 
 class ClientController extends Controller
 {
@@ -28,12 +28,12 @@ class ClientController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(CreateClientRequest $request)
-    {                      
+    {
         Client::create([
             'full_name' => $request->full_name,
             'phone_number' => $request->phone_number,
             'email' => $request->email,
-            'created_at' => now()
+            'created_at' => now(),
         ]);
 
         return redirect()->route('contacts');
@@ -47,12 +47,12 @@ class ClientController extends Controller
      */
     public function show($id)
     {
-        $client = Client::findOrFail($id);                
+        $client = Client::findOrFail($id);
 
         return view('clients.show', [
             'client' => $client,
             'deals' => $client->deals,
-            'customFields' => $client->getCustomFields()
+            'customFields' => $client->getCustomFields(),
         ]);
     }
 
@@ -63,11 +63,11 @@ class ClientController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {                
+    {
         $this->authorize('update', $id);
 
         return view('clients.edit', [
-            'client' => Client::findOrFail($id)
+            'client' => Client::findOrFail($id),
         ]);
     }
 
@@ -79,12 +79,12 @@ class ClientController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateClientRequest $request, $id)
-    {        
+    {
         Client::where('id', $id)->update([
             'full_name' => $request->full_name,
             'phone_number' => $request->phone_number,
             'email' => $request->email,
-        ]);        
+        ]);
 
         return redirect()->action(
             [ClientController::class, 'show'], ['client' => $id]
@@ -98,7 +98,7 @@ class ClientController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {                
+    {
         $this->authorize('delete', $id);
 
         ClientService::deleteTelegramMessages($id);

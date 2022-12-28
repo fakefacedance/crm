@@ -10,8 +10,9 @@ use Spatie\Permission\Traits\HasRoles;
 class Employee extends Authenticatable
 {
     use HasFactory, HasRoles, Notifiable;
-    
+
     public $timestamps = false;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -32,7 +33,7 @@ class Employee extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'password',        
+        'password',
     ];
 
     public function deals()

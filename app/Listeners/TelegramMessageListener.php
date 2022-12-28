@@ -5,8 +5,6 @@ namespace App\Listeners;
 use App\Events\TelegramMessageArrived;
 use App\Models\Client;
 use App\Notifications\MessageNotification;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 
@@ -35,12 +33,11 @@ class TelegramMessageListener
             'correspondent_name' => $event->message->from->first_name . $this->getLastName(),
             'correspondent_type' => 'client',
             'text' => $event->message->text,
-            'sent_at' => Carbon::createFromTimestamp($event->message->date, 'Europe/Moscow'),            
+            'sent_at' => Carbon::createFromTimestamp($event->message->date, 'Europe/Moscow'),
         ]);
-        $this->sendNotification($event->message);      
+        $this->sendNotification($event->message);
     }
 
-    
     private function getLastName()
     {
         try {
@@ -60,10 +57,12 @@ class TelegramMessageListener
                     ->first()
                     ?->client_id;
 
-        if (!isset($clientId)) return;
-        
+        if (! isset($clientId)) {
+            return;
+        }
+
         $deals = Client::find($clientId)->deals;
-        
+
         if ($deals->isNotEmpty()) {
             $deals->first()->employee->notify(new MessageNotification($message));
         }

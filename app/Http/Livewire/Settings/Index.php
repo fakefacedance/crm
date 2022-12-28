@@ -16,7 +16,7 @@ class Index extends Component
     }
 
     public function funnelsTabOnClick()
-    {        
+    {
         $this->funnelsTabSelected = true;
         $this->rolesTabSelected = false;
         $this->telegramTabSelected = false;

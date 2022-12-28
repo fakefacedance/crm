@@ -26,6 +26,32 @@ class Task extends Model
         'created_at',
     ];
 
+    public static function expired()
+    {
+        return Task::all()
+                    ->filter(fn ($task) => $task->isExpired());
+    }
+
+    public static function today()
+    {
+        return Task::where('deadline', '>=', now())
+                    ->where('deadline', '<', Carbon::tomorrow())
+                    ->get();
+    }
+
+    public static function tomorrow()
+    {
+        return Task::where('deadline', '>=', Carbon::tomorrow())
+                    ->where('deadline', '<', Carbon::tomorrow()->addDay())
+                    ->get();
+    }
+
+    public static function deffered()
+    {
+        return Task::where('deadline', '>=', Carbon::tomorrow()->addDay())
+                    ->get();
+    }
+
     public function assigner()
     {
         return $this->belongsTo(Employee::class, 'assigner_id');
@@ -54,45 +80,19 @@ class Task extends Model
     public function comments()
     {
         return $this->hasMany(Comment::class);
-    }    
+    }
 
     public function getPriorityName()
     {
-        return match ($this->priority) { 
-            0 => 'Низкий', 
-            1 => 'Средний', 
-            2 => 'Высокий', 
+        return match ($this->priority) {
+            0 => 'Низкий',
+            1 => 'Средний',
+            2 => 'Высокий',
         };
     }
 
     public function isExpired()
     {
-        return now() > $this->deadline && !$this->is_completed;
-    }
-
-    public static function expired()
-    {
-        return Task::all()
-                    ->filter(fn ($task) => $task->isExpired());
-    }
-
-    public static function today()
-    {
-        return Task::where('deadline', '>=', now())
-                    ->where('deadline', '<', Carbon::tomorrow())
-                    ->get();
-    }
-
-    public static function tomorrow()
-    {
-        return Task::where('deadline', '>=', Carbon::tomorrow())
-                    ->where('deadline', '<', Carbon::tomorrow()->addDay())
-                    ->get();
-    }
-
-    public static function deffered()
-    {
-        return Task::where('deadline', '>=', Carbon::tomorrow()->addDay())
-                    ->get();
+        return now() > $this->deadline && ! $this->is_completed;
     }
 }

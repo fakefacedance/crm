@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Funnel;
 use App\Models\FunnelStage;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DefaultFunnelSeeder extends Seeder
@@ -17,12 +16,12 @@ class DefaultFunnelSeeder extends Seeder
     public function run()
     {
         $funnel = Funnel::create([
-            'name' => 'Сделки'
+            'name' => 'Сделки',
         ]);
 
         $funnelStages = [
-            'Лид', 
-            'Потребность выявлена', 
+            'Лид',
+            'Потребность выявлена',
             'Договор и счет отправлены',
             'Счет оплачен',
         ];
@@ -33,6 +32,6 @@ class DefaultFunnelSeeder extends Seeder
                 'index' => $key,
                 'funnel_id' => $funnel->id,
             ]);
-        }        
+        }
     }
 }

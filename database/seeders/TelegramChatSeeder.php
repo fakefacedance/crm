@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Client;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -16,8 +15,8 @@ class TelegramChatSeeder extends Seeder
      * @return void
      */
     public function run()
-    {        
-        for ($i = 0; $i < 15; $i++) { 
+    {
+        for ($i = 0; $i < 15; $i++) {
             $chatId = fake()->randomNumber(nbDigits:9, strict:true);
             $client = $this->pickClient();
 
@@ -32,17 +31,17 @@ class TelegramChatSeeder extends Seeder
             $correspondentsTypes = ['client', 'manager'];
             $messagesCount = fake()->numberBetween(1, 10);
 
-            for ($j = 0; $j < $messagesCount; $j++) { 
-                $index = fake()->numberBetween(0, 1);                                
+            for ($j = 0; $j < $messagesCount; $j++) {
+                $index = fake()->numberBetween(0, 1);
                 DB::table('telegram_messages')->insert([
                     'chat_id' => $chatId,
                     'correspondent_name' => $correspondentsNames[$index],
                     'correspondent_type' => $correspondentsTypes[$index],
                     'text' => fake()->sentence(),
-                    'sent_at' => $sentAt
+                    'sent_at' => $sentAt,
                 ]);
                 $sentAt = fake()->dateTimeInInterval($sentAt, '+5 minutes', 'Europe/Moscow');
-            }            
+            }
         }
     }
 

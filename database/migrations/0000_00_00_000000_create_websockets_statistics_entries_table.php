@@ -6,11 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateWebSocketsStatisticsEntriesTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('websockets_statistics_entries', function (Blueprint $table) {
@@ -23,11 +18,6 @@ class CreateWebSocketsStatisticsEntriesTable extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('websockets_statistics_entries');

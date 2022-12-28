@@ -3,9 +3,7 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\BroadcastMessage;
-use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
 class MessageNotification extends Notification
@@ -13,6 +11,7 @@ class MessageNotification extends Notification
     use Queueable;
 
     public $message;
+
     /**
      * Create a new notification instance.
      *
@@ -37,7 +36,7 @@ class MessageNotification extends Notification
     public function toBroadcast($notifiable): BroadcastMessage
     {
         return new BroadcastMessage([
-            'type' => self::class,            
+            'type' => self::class,
             'message' => $this->message,
         ]);
     }

@@ -11,11 +11,11 @@ class EmployeesTab extends Component
     use WithPagination;
 
     protected $paginationTheme = 'bootstrap';
-    
+
     public function render()
     {
         return view('livewire.contacts.employees-tab', [
-            'employees' => Employee::orderBy('full_name')->paginate(12, ['*'], 'employees_page')
+            'employees' => Employee::orderBy('full_name')->paginate(12, ['*'], 'employees_page'),
         ]);
     }
 }

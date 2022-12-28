@@ -9,7 +9,7 @@ use Spatie\Permission\Models\Role;
 
 class EditRole extends Component
 {
-    public Role $role;    
+    public Role $role;
     public $roleName;
     public $permissions;
     public Collection $inputs;
@@ -20,9 +20,9 @@ class EditRole extends Component
         $this->roleName = $role->name;
         $this->permissions = Permission::all();
         $this->inputs = collect([]);
-        
+
         foreach ($this->permissions as $permission) {
-            $this->inputs->put($permission->id, $this->role->hasPermissionTo($permission));            
+            $this->inputs->put($permission->id, $this->role->hasPermissionTo($permission));
         }
     }
 
@@ -53,6 +53,6 @@ class EditRole extends Component
 
         $newPermissionsSet = Permission::whereIn('id', $permissionsIds)->get();
 
-        $this->role->syncPermissions($newPermissionsSet);        
+        $this->role->syncPermissions($newPermissionsSet);
     }
 }

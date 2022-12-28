@@ -30,14 +30,14 @@ class EmployeeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(CreateEmployeeRequest $request)
-    {        
+    {
         $user = Employee::create([
             'full_name' => $request->full_name,
             'position' => $request->position,
-            'phone_number' => $request->phone_number,            
+            'phone_number' => $request->phone_number,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'created_at' => now()
+            'created_at' => now(),
         ]);
         $user->assignRole($request->role);
 
@@ -57,7 +57,7 @@ class EmployeeController extends Controller
         return view('employees.show', [
             'employee' => $employee,
             'tasks' => $employee->tasksAssignedTo()->paginate(10),
-            'deals' => $employee->deals()->paginate(8)
+            'deals' => $employee->deals()->paginate(8),
         ]);
     }
 

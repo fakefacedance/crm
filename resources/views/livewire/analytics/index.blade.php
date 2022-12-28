@@ -4,12 +4,12 @@
 
   <ul class="nav nav-pills mt-3 justify-content-between">
     <li class="nav-item">
-      <button wire:click='funnelsTabSelected' class="nav-link {{ $funnelsTabSelected ? 'active' : ''}}">
+      <button wire:click='funnelsTabSelected' class="nav-link {{ $funnelsTabSelected ? 'active' : '' }}">
         Воронки
       </button>
     </li>
     <li class="nav-item">
-      <button wire:click='managersTabSelected' class="nav-link {{ $managersTabSelected ? 'active' : ''}}">
+      <button wire:click='managersTabSelected' class="nav-link {{ $managersTabSelected ? 'active' : '' }}">
         Менеджеры
       </button>
     </li>

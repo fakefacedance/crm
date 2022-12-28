@@ -8,7 +8,7 @@ use Illuminate\Auth\Access\HandlesAuthorization;
 
 class ClientPolicy
 {
-    use HandlesAuthorization;   
+    use HandlesAuthorization;
 
     /**
      * Determine whether the user can update the model.
@@ -29,7 +29,7 @@ class ClientPolicy
     /**
      * Determine whether the user can delete the model.
      *
-     * @param  \App\Models\Employee  $employee     
+     * @param  \App\Models\Employee  $employee
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function delete(Employee $employee)

@@ -15,7 +15,7 @@ class ClientFactory extends Factory
      * @return array<string, mixed>
      */
     public function definition()
-    {        
+    {
         return [
             'full_name' => fake()->name(),
             'email' => fake()->unique()->optional(weight:0.6)->email(),

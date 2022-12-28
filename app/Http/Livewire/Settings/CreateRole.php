@@ -8,7 +8,7 @@ use Spatie\Permission\Models\Role;
 
 class CreateRole extends Component
 {
-    public $roleName;    
+    public $roleName;
     public $inputs;
     public $permissions;
 

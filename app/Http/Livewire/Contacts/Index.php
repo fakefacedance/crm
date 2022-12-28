@@ -8,7 +8,7 @@ class Index extends Component
 {
     public $clientsTabSelected = true;
     public $managersTabSelected = false;
-    
+
     public function render()
     {
         return view('livewire.contacts.index');

@@ -12,7 +12,7 @@ class Funnel extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'name'
+        'name',
     ];
 
     public function stages()

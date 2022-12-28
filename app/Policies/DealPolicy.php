@@ -8,7 +8,7 @@ use Illuminate\Auth\Access\HandlesAuthorization;
 
 class DealPolicy
 {
-    use HandlesAuthorization;    
+    use HandlesAuthorization;
 
     /**
      * Determine whether the user can create models.
@@ -43,5 +43,5 @@ class DealPolicy
     public function delete(Employee $employee, Deal $deal)
     {
         return $deal->employee->is($employee);
-    }    
+    }
 }

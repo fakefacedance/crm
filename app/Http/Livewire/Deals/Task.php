@@ -10,7 +10,7 @@ class Task extends Component
     public TaskModel $task;
 
     protected $rules = [
-        'task.is_completed' => ['required', 'boolean']
+        'task.is_completed' => ['required', 'boolean'],
     ];
 
     public function mount(TaskModel $task)

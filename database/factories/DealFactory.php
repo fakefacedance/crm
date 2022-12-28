@@ -3,9 +3,8 @@
 namespace Database\Factories;
 
 use App\Models\Client;
-use App\Models\Funnel;
-use App\Models\FunnelStage;
 use App\Models\Employee;
+use App\Models\Funnel;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -35,10 +34,10 @@ class DealFactory extends Factory
             'stage' => $funnelStage->index,
             'created_at' => $createdAt,
             'closed_at' => $closedAt,
-            'success' => !is_null($closedAt) ? fake()->boolean(90) : false,
+            'success' => ! is_null($closedAt) ? fake()->boolean(90) : false,
             'client_id' => $clientId,
             'employee_id' => Employee::inRandomOrder()->first()->id,
-            'funnel_id' => Funnel::first()->id
+            'funnel_id' => Funnel::first()->id,
         ];
     }
 }

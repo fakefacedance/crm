@@ -13,7 +13,7 @@ class MessageUpdateHandler extends UpdateHandler
     }
 
     public function handle()
-    {        
+    {
         TelegramMessageArrived::dispatch($this->update->message);
     }
 }

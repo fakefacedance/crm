@@ -12,8 +12,10 @@ class ClientService
                     ->where('client_id', $clientId)
                     ->where('name', 'Telegram')
                     ->first();
-                    
-        if (!isset($telegramCustomField)) return;
+
+        if (! isset($telegramCustomField)) {
+            return;
+        }
 
         DB::table('telegram_messages')
             ->where('chat_id', $telegramCustomField->value)

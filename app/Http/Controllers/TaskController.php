@@ -15,7 +15,7 @@ class TaskController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {                     
+    {
         return view('tasks.index', TaskService::indexViewData());
     }
 
@@ -26,7 +26,7 @@ class TaskController extends Controller
      */
     public function create()
     {
-        $this->authorize('add task');        
+        $this->authorize('add task');
 
         return view('tasks.create', TaskService::createViewData());
     }
@@ -38,11 +38,11 @@ class TaskController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(CreateTaskRequest $request)
-    {        
+    {
         TaskService::createTask($request);
 
         return redirect()->route('tasks.index');
-    }    
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -78,11 +78,11 @@ class TaskController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {        
+    {
         $this->authorize('delete', Task::find($id));
 
-        Task::find($id)->delete();      
-        
+        Task::find($id)->delete();
+
         return redirect()->back();
     }
 }

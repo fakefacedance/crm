@@ -73,24 +73,24 @@
             </thead>
             <tbody>
               @foreach ($tasks as $index => $task)
-                <tr @if($task->isExpired()) class="table-danger" @elseif($task->is_completed) class="table-success" @endif>
+                <tr @if ($task->isExpired()) class="table-danger" @elseif($task->is_completed) class="table-success" @endif>
                   <th scope="row">{{ $index + 1 }}</th>
                   <td>{{ $task->title }}</td>
                   <td>{{ $task->getPriorityName() }}</td>
                   <td>
-                    @if(isset($task->client))
+                    @if (isset($task->client))
                       <a href="{{ route('clients.show', $task->client->id) }}">{{ $task->client->full_name }}</a>
                     @else
                       Нет
-                    @endif                                        
+                    @endif
                   </td>
                   <td>
-                    @if(isset($task->deal))
+                    @if (isset($task->deal))
                       {{-- <a href="{{ route('deals.show', $task->deal_id) }}">{{ $task->deal->title }}</a> --}}
                       <a href="#">{{ $task->deal->title }}</a>
                     @else
                       Нет
-                    @endif                                        
+                    @endif
                   </td>
                   <td>
                     <a href="{{ route('employees.show', $task->assigner_id) }}">{{ $task->assigner->full_name }}</a>
@@ -120,7 +120,7 @@
             </thead>
             <tbody>
               @foreach ($deals as $index => $deal)
-                <tr @if($deal->stage === 4) class="table-danger" @elseif($deal->stage === 3) class="table-success" @endif>
+                <tr @if ($deal->stage === 4) class="table-danger" @elseif($deal->stage === 3) class="table-success" @endif>
                   <th scope="row">{{ $index + 1 }}</th>
                   <td>
                     <a href="{{ route('deals.show', $deal->id) }}">{{ $deal->title }}</a>                    
@@ -132,7 +132,7 @@
                   <td>{{ $deal->getStage()->name }}</td>                  
                   <td>{{ $deal->amount }} ₽</td>
                 </tr>
-              @endforeach                            
+              @endforeach
             </tbody>
           </table>
           <div class="d-flex justify-content-start mt-3">

@@ -13,7 +13,7 @@ class CreateDealRequest extends FormRequest
      */
     public function authorize()
     {
-        return $this->user()->can('add deal');        
+        return $this->user()->can('add deal');
     }
 
     /**

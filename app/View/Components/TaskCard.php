@@ -7,7 +7,7 @@ use Illuminate\View\Component;
 
 class TaskCard extends Component
 {
-    public Task $task;    
+    public Task $task;
 
     /**
      * Create a new component instance.

@@ -12,16 +12,16 @@
             </div>
           @else
             <input type="text" wire:model="deal.title" class="form-control fs-5 fw-semibold">
-          @endif                        
+          @endif
         </div>
         <div class="col-8">
           <div class="d-flex flex-row justify-content-between align-items-center">
             <ul class="nav nav-pills card-header-pills">              
               <li class="nav-item">
-                <button wire:click="$emit('tabSelected', 'tasks')" class="nav-link @if($selectedTab == 'tasks') active @endif">Задачи</button>
+                <button wire:click="$emit('tabSelected', 'tasks')" class="nav-link @if ($selectedTab == 'tasks') active @endif">Задачи</button>
               </li>                          
               <li class="nav-item">
-                <button wire:click="$emit('tabSelected', 'chat')" class="nav-link @if($selectedTab == 'chat') active @endif @empty($deal->client) disabled @endempty">Чат</button>
+                <button wire:click="$emit('tabSelected', 'chat')" class="nav-link @if ($selectedTab == 'chat') active @endif @empty($deal->client) disabled @endempty">Чат</button>
               </li>
             </ul>
             @can('update', $deal)
@@ -34,7 +34,7 @@
                   Закрыть
                 </button>
               </div>                
-              @else            
+              @else
                 <div class="fs-5">                
                   <a href="{{ route('deals.custom_fields', $deal->id) }}" class="badge text-bg-success">
                     <i class="bi bi-gear"></i>
@@ -152,7 +152,7 @@
                   <a href="{{ route('clients.edit', $deal->client->id) }}" class="badge text-bg-primary ms-auto">
                     <i class="bi bi-pencil"></i>
                   </a>                    
-                @endif                
+                @endif
               </div>
               <div class="card-body">                
                 <p class="card-text">Телефон: {{ $deal->client->phone_number }}</p>                
@@ -168,7 +168,7 @@
           @if ($selectedTab == 'tasks')
           <div class="row gy-2 overflow-auto" style="max-height: 473px;">
             @foreach ($deal->tasks as $task)
-              <livewire:deals.task :task="$task" wire:key="task-{{$task->id}}">
+              <livewire:deals.task :task="$task" wire:key="task-{{ $task->id }}">
             @endforeach
           </div>              
           @elseif ($selectedTab == 'chat')
@@ -181,7 +181,7 @@
                   <i class="bi bi-chat-left-dots"></i> Сообщения отсутствуют
                 </div>
               </div>
-            @endif            
+            @endif
           </div>          
           @endif
         </div>

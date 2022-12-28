@@ -7,6 +7,7 @@ use Illuminate\View\Component;
 class Navbar extends Component
 {
     public $brand;
+
     /**
      * Create a new component instance.
      *

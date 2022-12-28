@@ -5,7 +5,6 @@ namespace Database\Factories;
 use App\Models\Client;
 use App\Models\Deal;
 use App\Models\Employee;
-use DateInterval;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Carbon;
 
@@ -20,13 +19,13 @@ class TaskFactory extends Factory
      * @return array<string, mixed>
      */
     public function definition()
-    {           
+    {
         $deal = fake()->boolean(80) ? Deal::inRandomOrder()->first() : null;
-        
+
         if (is_null($deal)) {
             $createdAt = fake()->dateTimeBetween(startDate:'-1 years', timezone:'Europe/Moscow');
             $clientId = fake()->boolean(80) ? Client::inRandomOrder()->first()->id : null;
-        } else {            
+        } else {
             $createdAt = fake()->dateTimeInInterval($deal->created_at, '+2 days', 'Europe/Moscow');
             $clientId = $deal->client_id;
         }

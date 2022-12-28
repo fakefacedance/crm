@@ -1,4 +1,4 @@
-<div class="card shadow-sm mt-2 @if($task->priority == 2) border-danger @elseif($task->priority == 1) border-warning @endif">          
+<div class="card shadow-sm mt-2 @if ($task->priority == 2) border-danger @elseif ($task->priority == 1) border-warning @endif">          
   <div class="card-body position-relative"> 
     @canany(['update', 'delete'], $task)
       <div class="position-absolute top-0 end-0 me-1">
@@ -26,17 +26,17 @@
           href="{{ route('clients.show', $task->client->id) }}" 
           class="card-link">{{ $task->client->full_name }}</a>
         </p>
-      @endif     
+      @endif
       @isset($task->description)
         <p class="card-text text-truncate @isset($task->remind_at) mb-3 @endisset">{{ $task->description }}</p>                      
-      @endisset 
+      @endisset
       @isset($task->remind_at)
       <div class="position-absolute bottom-0 end-0 me-1 mb-1">
         <div class="badge text-bg-secondary">
           <i class="bi bi-alarm"></i> {{ App\Services\DatetimeService::formatted($task->remind_at) }} 
         </div>        
       </div>
-    @endisset            
+    @endisset
   </div>
   <div class="card-footer text-muted">
     {{ App\Services\DatetimeService::formatted($task->deadline) }}

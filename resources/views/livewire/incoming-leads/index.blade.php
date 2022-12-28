@@ -7,7 +7,7 @@
         <div class="col-4">
           <div class="list-group">
             @foreach ($this->leads as $lead)
-              <button wire:click='selectLead({{$lead->id}})' class="list-group-item list-group-item-action">
+              <button wire:click='selectLead({{ $lead->id }})' class="list-group-item list-group-item-action">
                 <div class="d-flex w-100 justify-content-between">
                   <div class="mb-1">{{ $lead->correspondent_name }} <i class="bi bi-telegram"></i></div>
                   <small>{{ App\Services\DatetimeService::formatted($lead->sent_at, 'DD.MM.YYYY') }}</small>

@@ -13,12 +13,12 @@ class Client extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'full_name',        
+        'full_name',
         'email',
-        'phone_number',        
+        'phone_number',
         'created_at',
     ];
-    
+
     public function tasks()
     {
         return $this->hasMany(Task::class);

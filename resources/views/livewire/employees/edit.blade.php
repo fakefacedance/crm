@@ -72,11 +72,11 @@
           @foreach ($roles as $index => $role)
             <div class="form-check">
               <input 
-              wire:model="roles.{{$index}}.checked"
+              wire:model="roles.{{ $index }}.checked"
               class="form-check-input" 
               type="checkbox"               
-              id="role-{{$role->name}}">
-              <label class="form-check-label" for="role-{{$role->name}}">
+              id="role-{{ $role->name }}">
+              <label class="form-check-label" for="role-{{ $role->name }}">
                 {{ $role->name }}
               </label>
             </div>

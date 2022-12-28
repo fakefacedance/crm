@@ -6,11 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('deals', function (Blueprint $table) {
@@ -22,16 +17,11 @@ return new class extends Migration
             $table->foreignId('funnel_id')->constrained();
             $table->tinyInteger('stage');
             $table->dateTime('created_at');
-            $table->dateTime('closed_at')->nullable();   
+            $table->dateTime('closed_at')->nullable();
             $table->boolean('success')->default(false);
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::disableForeignKeyConstraints();

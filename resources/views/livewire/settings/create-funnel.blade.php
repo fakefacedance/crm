@@ -36,15 +36,15 @@
   @foreach ($inputs as $key => $item)
   <div class="row g-3 mt-1">
     <div class="col">
-      <input type="text" id="input_{{$key}}_name" wire:model.defer="inputs.{{$key}}.name" class="form-control @error('inputs.'.$key.'.name') is-invalid @enderror" placeholder="Название" autocomplete="off">      
+      <input type="text" id="input_{{ $key }}_name" wire:model.defer="inputs.{{ $key }}.name" class="form-control @error('inputs.'.$key.'.name') is-invalid @enderror" placeholder="Название" autocomplete="off">      
       @error('inputs.'.$key.'.name') <span class="invalid-feedback">{{ $message }}</span> @enderror      
     </div>
     <div class="col-2">      
-      <input type="number" id="input_{{$key}}_index" wire:model.defer="inputs.{{$key}}.index" min="0" max="{{$inputs->count() - 1}}" class="form-control @error('inputs.'.$key.'.index') is-invalid @enderror" autocomplete="off">
+      <input type="number" id="input_{{ $key }}_index" wire:model.defer="inputs.{{ $key }}.index" min="0" max="{{ $inputs->count() - 1 }}" class="form-control @error('inputs.'.$key.'.index') is-invalid @enderror" autocomplete="off">
       @error('inputs.'.$key.'.index') <span class="invalid-feedback">{{ $message }}</span> @enderror
     </div>    
     <div class="col">
-      <button wire:click="removeInput({{$key}})" class="btn btn-danger">Удалить</button>
+      <button wire:click="removeInput({{ $key }})" class="btn btn-danger">Удалить</button>
     </div>
   </div>  
   @endforeach  

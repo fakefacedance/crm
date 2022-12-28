@@ -2,12 +2,12 @@
   <div class="d-flex flex-row justify-content-between">
     <div class="form-check">
       <input wire:model="task.is_completed" wire:change='taskCompleted' class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-      <label class="form-check-label @if($task->is_completed) text-decoration-line-through @endif" for="flexCheckDefault">
+      <label class="form-check-label @if ($task->is_completed) text-decoration-line-through @endif" for="flexCheckDefault">
         {{ $task->title }}
       </label>
     </div>
     <div>
-      <button class="badge text-bg-secondary border-0" data-bs-toggle="modal" data-bs-target="#task-modal-{{$task->id}}">
+      <button class="badge text-bg-secondary border-0" data-bs-toggle="modal" data-bs-target="#task-modal-{{ $task->id }}">
         <i class="bi bi-info-lg"></i>
       </button>
       @can('delete', $task)
@@ -22,7 +22,7 @@
     </div>    
   </div>  
 
-  <div class="modal fade" id="task-modal-{{$task->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="task-modal-{{ $task->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">

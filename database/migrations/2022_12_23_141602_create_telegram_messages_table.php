@@ -6,11 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('telegram_messages', function (Blueprint $table) {
@@ -19,15 +14,10 @@ return new class extends Migration
             $table->string('correspondent_name');
             $table->string('correspondent_type');
             $table->string('text', 4096);
-            $table->dateTime('sent_at');            
+            $table->dateTime('sent_at');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('telegram_messages');

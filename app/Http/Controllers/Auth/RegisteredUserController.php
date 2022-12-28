@@ -32,14 +32,14 @@ class RegisteredUserController extends Controller
      * @throws \Illuminate\Validation\ValidationException
      */
     public function store(RegistrationRequest $request)
-    {                   
+    {
         $user = Employee::create([
             'full_name' => $request->full_name,
             'position' => 'Менеджер',
-            'phone_number' => $request->phone_number,            
+            'phone_number' => $request->phone_number,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
         $user->assignRole('manager');
 

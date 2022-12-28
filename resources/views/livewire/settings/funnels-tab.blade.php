@@ -15,7 +15,7 @@
               </a> 
             @endcan
             @can('delete funnel')              
-              <button wire:click='deleteFunnel({{$funnel}})' class="badge text-bg-danger border-0">
+              <button wire:click='deleteFunnel({{ $funnel }})' class="badge text-bg-danger border-0">
                 <i class="bi bi-trash"></i>
               </button>
             @endcan            

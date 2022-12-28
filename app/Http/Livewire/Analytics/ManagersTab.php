@@ -11,10 +11,10 @@ class ManagersTab extends Component
 {
     use WithPagination;
 
-    protected $paginationTheme = 'bootstrap';
-
     public $dateFrom;
     public $dateTo;
+
+    protected $paginationTheme = 'bootstrap';
 
     public function mount($dateFrom, $dateTo)
     {
@@ -25,7 +25,7 @@ class ManagersTab extends Component
     public function render()
     {
         return view('livewire.analytics.managers-tab', [
-            'managers' => Employee::paginate(10)
+            'managers' => Employee::paginate(10),
         ]);
     }
 
@@ -59,7 +59,9 @@ class ManagersTab extends Component
     public function getFailedDealsPercent($manager)
     {
         $dealsCount = $this->getDealsCount($manager);
-        if ($dealsCount === 0) return 0;
+        if ($dealsCount === 0) {
+            return 0;
+        }
 
         $percent = $this->getFailedDealsCount($manager) / $this->getDealsCount($manager) * 100;
 
@@ -67,7 +69,7 @@ class ManagersTab extends Component
     }
 
     public function getAverageReceipt($manager)
-    {        
+    {
         $avg = $manager->deals
         ->whereBetween('created_at', [$this->dateFrom, $this->dateTo])
         ->average('amount');

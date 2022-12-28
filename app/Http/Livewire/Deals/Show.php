@@ -3,28 +3,28 @@
 namespace App\Http\Livewire\Deals;
 
 use App\Models\Deal;
-use App\Models\Funnel;
 use App\Models\Employee;
+use App\Models\Funnel;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class Show extends Component
 {
-    public Deal $deal;       
-    public $editModeEnabled = false;    
+    public Deal $deal;
+    public $editModeEnabled = false;
     public $selectedTab;
-    public $selectedFunnelId;    
+    public $selectedFunnelId;
     public $selectedStage;
 
     public $successStageIndex = 254;
     public $failStageIndex = 255;
 
-    protected $rules = [        
-        'deal.title' => ['required', 'max:255'],        
+    protected $rules = [
+        'deal.title' => ['required', 'max:255'],
         'deal.amount' => ['required', 'min:0', 'max:99999999.99'],
-        'deal.employee_id' => ['required', 'exists:'.Employee::class.',id'],
+        'deal.employee_id' => ['required', 'exists:' . Employee::class . ',id'],
     ];
-    protected $listeners = [        
+    protected $listeners = [
         'tabSelected',
         'editModeToggle',
         'refreshParent' => '$refresh',
@@ -34,12 +34,12 @@ class Show extends Component
     {
         return Funnel::find($this->selectedFunnelId);
     }
-    
+
     public function mount(Deal $deal)
     {
         $this->selectedTab = 'tasks';
-        $this->selectedFunnelId = $this->deal->funnel->id;        
-        $this->deal = $deal;                               
+        $this->selectedFunnelId = $this->deal->funnel->id;
+        $this->deal = $deal;
     }
 
     public function render()
@@ -51,11 +51,11 @@ class Show extends Component
             'customFields' => $customFields,
             'employees' => Employee::all(),
         ]);
-    }    
+    }
 
     public function tabSelected($tabName)
-    {        
-        $this->selectedTab = $tabName;        
+    {
+        $this->selectedTab = $tabName;
     }
 
     public function stageSelected($stage)
@@ -68,47 +68,24 @@ class Show extends Component
         if ($this->editModeEnabled) {
             $this->selectedStage = $this->deal->stage;
         }
-                
+
         if ($this->deal->isDirty()) {
             $this->deal->fill($this->deal->getOriginal());
-        }        
+        }
         $this->selectedFunnelId = $this->deal->funnel->id;
 
-        $this->editModeEnabled = !$this->editModeEnabled;
+        $this->editModeEnabled = ! $this->editModeEnabled;
     }
 
     public function saveChanges()
-    {                
+    {
         $this->validate();
 
         $this->deal->funnel_id = $this->selectedFunnelId;
-        $this->setDealStage();        
+        $this->setDealStage();
         $this->deal->save();
-                
-        $this->editModeEnabled = !$this->editModeEnabled;
-    }
 
-    private function setDealStage()
-    {
-        if ($this->selectedStage == $this->successStageIndex || 
-        $this->selectedStage == $this->failStageIndex) {
-            $this->setDealStageIfTerminal();
-        } else {            
-            $this->setDealStageIfNotTerminal();
-        }
-    }
-
-    private function setDealStageIfTerminal()
-    {        
-        $this->deal->success = $this->selectedStage == $this->successStageIndex;        
-        $this->deal->closed_at = now();        
-    }
-
-    private function setDealStageIfNotTerminal()
-    {
-        $this->deal->stage = $this->selectedStage;
-        $this->deal->closed_at = null;
-        $this->deal->success = false;
+        $this->editModeEnabled = ! $this->editModeEnabled;
     }
 
     public function clientHasChat()
@@ -117,7 +94,7 @@ class Show extends Component
                         ->where('client_id', $this->deal->client->id)
                         ->where('name', 'Telegram')
                         ->first();
-                                                
+
         return isset($customField);
     }
 
@@ -133,5 +110,28 @@ class Show extends Component
                 ->where('chat_id', $chatId)
                 ->first()
                 ->id;
+    }
+
+    private function setDealStage()
+    {
+        if ($this->selectedStage == $this->successStageIndex ||
+        $this->selectedStage == $this->failStageIndex) {
+            $this->setDealStageIfTerminal();
+        } else {
+            $this->setDealStageIfNotTerminal();
+        }
+    }
+
+    private function setDealStageIfTerminal()
+    {
+        $this->deal->success = $this->selectedStage == $this->successStageIndex;
+        $this->deal->closed_at = now();
+    }
+
+    private function setDealStageIfNotTerminal()
+    {
+        $this->deal->stage = $this->selectedStage;
+        $this->deal->closed_at = null;
+        $this->deal->success = false;
     }
 }

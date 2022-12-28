@@ -3,13 +3,12 @@
 namespace App\Http\Livewire\Settings;
 
 use Livewire\Component;
-
 use WeStacks\TeleBot\Laravel\TeleBot;
 
 class TelegramTab extends Component
-{    
+{
     public function render()
-    {                
+    {
         return view('livewire.settings.telegram-tab');
     }
 
@@ -24,7 +23,7 @@ class TelegramTab extends Component
             return TeleBot::getMe() !== null;
         } catch (\Throwable $th) {
             return false;
-        }                
+        }
     }
 
     public function getBotNameProperty()
@@ -33,7 +32,7 @@ class TelegramTab extends Component
             $name = TeleBot::getMe()->first_name;
         } catch (\Throwable $th) {
             $name = config('telebot.bots.bot.name');
-        }        
+        }
 
         return $name;
     }
@@ -44,7 +43,7 @@ class TelegramTab extends Component
             $username = TeleBot::getMe()->username;
         } catch (\Throwable $th) {
             $username = '';
-        }        
+        }
 
         return $username;
     }

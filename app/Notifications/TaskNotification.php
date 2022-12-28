@@ -13,6 +13,7 @@ class TaskNotification extends Notification implements ShouldBroadcast
     use Queueable;
 
     public string $taskTitle;
+
     /**
      * Create a new notification instance.
      *
@@ -35,7 +36,7 @@ class TaskNotification extends Notification implements ShouldBroadcast
     }
 
     public function toBroadcast($notifiable): BroadcastMessage
-    {                
+    {
         return new BroadcastMessage([
             'type' => 'taskNotification',
             'employeeName' => Employee::find($notifiable->id)->full_name,

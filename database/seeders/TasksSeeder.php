@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Employee;
 use App\Models\Task;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Carbon;
 
@@ -21,7 +20,7 @@ class TasksSeeder extends Seeder
 
         $testManager = Employee::where('full_name', 'Test Manager')->first();
         Task::factory()->count(10)->create([
-            'executor_id' => $testManager->id
+            'executor_id' => $testManager->id,
         ]);
         Task::factory()->count(5)->create([
             'executor_id' => $testManager->id,

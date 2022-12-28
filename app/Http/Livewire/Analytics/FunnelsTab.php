@@ -13,32 +13,32 @@ class FunnelsTab extends Component
     public $maxDealsCount;
 
     public $dateFrom;
-    public $dateTo; 
+    public $dateTo;
 
     private $dateTimeFrom;
     private $dateTimeTo;
 
     public function mount($dateFrom, $dateTo)
-    {               
-        $this->selectedFunnelId = Funnel::first()->id;    
-        
+    {
+        $this->selectedFunnelId = Funnel::first()->id;
+
         $this->dateFrom = $dateFrom;
         $this->dateTo = $dateTo;
-        
+
         $this->dateTimeFrom = Carbon::create($this->dateFrom);
         $this->dateTimeTo = Carbon::create($this->dateTo)->addHours(23)->addMinutes(59)->addSeconds(59);
 
         $this->maxDealsCount = Deal::where('closed_at', '<>', null)->get()
             ->whereBetween('created_at', [$this->dateTimeFrom, $this->dateTimeTo])
-            ->count();            
+            ->count();
     }
 
     public function render()
     {
         return view('livewire.analytics.funnels-tab', [
             'funnels' => Funnel::all(),
-        ]);        
-    }            
+        ]);
+    }
 
     public function getDealsCount($stageIndex)
     {
@@ -46,7 +46,7 @@ class FunnelsTab extends Component
             ->whereBetween('created_at', [$this->dateTimeFrom, $this->dateTimeTo])
             ->whereNotNull('closed_at')
             ->where('stage', '>=', $stageIndex)
-            ->count();                        
+            ->count();
 
         if ($dealsCount > $this->maxDealsCount) {
             $this->maxDealsCount = $dealsCount;
@@ -56,24 +56,24 @@ class FunnelsTab extends Component
     }
 
     public function getPercentOfMaxDealsCount($stageIndex)
-    {        
+    {
         return $this->getDealsCount($stageIndex) / $this->maxDealsCount * 100;
     }
-    
+
     public function getFunnelProperty()
     {
         return Funnel::find($this->selectedFunnelId);
     }
-    
+
     public function getDealsInProcessProperty()
-    {        
+    {
         return $this->funnel->deals
             ->whereBetween('created_at', [$this->dateTimeFrom, $this->dateTimeTo])
             ->whereNull('closed_at');
     }
 
     public function getSuccessfulDealsProperty()
-    {       
+    {
         return $this->funnel->deals
             ->whereBetween('created_at', [$this->dateTimeFrom, $this->dateTimeTo])
             ->whereNotNull('closed_at')
@@ -81,7 +81,7 @@ class FunnelsTab extends Component
     }
 
     public function getFailedDealsProperty()
-    {       
+    {
         return $this->funnel->deals
             ->whereBetween('created_at', [$this->dateTimeFrom, $this->dateTimeTo])
             ->whereNotNull('closed_at')

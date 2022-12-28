@@ -16,11 +16,11 @@ class AddClient extends Component
     {
         $this->deal = $deal;
     }
-    
+
     public function render()
     {
         return view('livewire.deals.add-client', [
-            'clients' => Client::all()
+            'clients' => Client::all(),
         ]);
     }
 

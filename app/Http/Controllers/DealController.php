@@ -5,12 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateDealRequest;
 use App\Models\Client;
 use App\Models\Deal;
-use App\Models\Funnel;
 use App\Models\Employee;
+use App\Models\Funnel;
 
 class DealController extends Controller
 {
-
     /**
      * Show the form for creating a new resource.
      *
@@ -23,7 +22,7 @@ class DealController extends Controller
         return view('deals.create', [
             'clients' => Client::all(),
             'employees' => Employee::all(),
-            'funnels' => Funnel::all()
+            'funnels' => Funnel::all(),
         ]);
     }
 
@@ -42,7 +41,7 @@ class DealController extends Controller
             'funnel_id' => $request->funnel,
             'stage' => 0,
             'amount' => $request->amount,
-            'created_at' => now()
+            'created_at' => now(),
         ]);
 
         return redirect()->route('deals.index');

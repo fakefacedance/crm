@@ -2,7 +2,7 @@
   <x-slot:title>Новый контакт</x-slot:title>
   <x-slot:brand>Контакты 🠖 Новый</x-slot:brand>
 
-  <form action="{{ route('clients.store')}}" method="POST" class="mt-3">
+  <form action="{{ route('clients.store') }}" method="POST" class="mt-3">
     @csrf
     <div class="mb-3">
       <label for="full_name" class="form-label">ФИО</label>

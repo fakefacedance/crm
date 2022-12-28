@@ -8,7 +8,7 @@ use Livewire\Component;
 class DealCard extends Component
 {
     public Deal $deal;
-    
+
     public function mount(Deal $deal)
     {
         $this->deal = $deal;

@@ -8,9 +8,9 @@
           <span class="badge bg-success ms-auto">Активен</span>
         @else
           <span class="badge bg-danger ms-auto">Неактивен</span>
-        @endif        
+        @endif
       </div>    
-      <a href="https://t.me/{{$this->botUsername}}" class="text-primary nav-link">
+      <a href="https://t.me/{{ $this->botUsername }}" class="text-primary nav-link">
         {{ $this->botUsername ? '@'.$this->botUsername : '' }}
       </a>
       <div class="mt-3">

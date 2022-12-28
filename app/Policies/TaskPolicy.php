@@ -31,7 +31,6 @@ class TaskPolicy
      */
     public function update(Employee $employee, Task $task)
     {
-        
         return $task->assigner->is($employee);
     }
 
