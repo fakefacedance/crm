@@ -16,9 +16,10 @@ class EmployeeSeeder extends Seeder
     {
         Employee::factory()->count(5)->create();
 
-        Employee::factory()->create([
+        $manager = Employee::factory()->create([
             'full_name' => 'Test Manager',
             'email' => 'manager@test.com',
         ]);
+        $manager->assignRole('manager');
     }
 }
