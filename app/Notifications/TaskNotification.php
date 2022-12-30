@@ -38,7 +38,7 @@ class TaskNotification extends Notification implements ShouldBroadcast
     public function toBroadcast($notifiable): BroadcastMessage
     {
         return new BroadcastMessage([
-            'type' => 'taskNotification',
+            'type' => self::class,
             'employeeName' => Employee::find($notifiable->id)->full_name,
             'taskTitle' => $this->taskTitle,
         ]);
