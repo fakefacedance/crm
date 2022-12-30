@@ -73,8 +73,7 @@ class Index extends Component
         ]);
 
         DB::table('clients_custom_fields')->insert([
-            'client_id' => $client->id,
-            'field_type_id' => 2,
+            'client_id' => $client->id,            
             'name' => 'Telegram',
             'value' => $this->selectedLead->chat_id,
         ]);
