@@ -1,66 +1,224 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# CRM
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+В приложении реализован базовый функционал CRM-системы: ведение клиентской базы,  автоматизация сделок, задач и воронок.
 
-## About Laravel
+## Содержание
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- [Цель разработки](#цель-разработки)
+- [Использованные технологии](#использованные-технологии)
+- [Установка](#установка)
+- [Возможности системы](#возможности-системы)
+    - [Аутентификация](#аутентификация)
+    - [Авторизация](#авторизация)
+    - [Пользовательские роли](#пользовательские-роли)
+    - [Клиенты](#клиенты)
+    - [Сотрудники](#сотрудники)
+    - [Задачи](#задачи)
+    - [Сделки](#сделки)
+    - [Воронки](#воронки)
+    - [Аналитика](#аналитика)
+    - [Интеграция с Telegram](#интеграция-с-telegram)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Цель разработки
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Приложение разработано с целью освоения базовых навыков создания веб-приложений с применением фреймворка Laravel.
 
-## Learning Laravel
+## Использованные технологии
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- [PHP v8.0.2](https://www.php.net/)
+- [Laravel v9.19](https://laravel.com/)
+- [Bootstrap v5.2](https://getbootstrap.com/)
+- [Livewire v2.10](https://laravel-livewire.com/)
+- [Laravel-permission v5](https://spatie.be/docs/laravel-permission/v5/introduction)
+- [Laravel WebSockets v1.13](https://beyondco.de/docs/laravel-websockets/getting-started/introduction/)
+- [Telebot v2.3](https://westacks.github.io/telebot/#/)
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Установка
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Склонируйте репозиторий
 
-## Laravel Sponsors
+```
+git clone https://github.com/praisethesadness/crm.git
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+Установите зависимости
 
-### Premium Partners
+```
+composer install
+npm install && npm run build
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+Создайте `.env`-файл
 
-## Contributing
+```
+cp .env.example .env
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Убедитесь, что в `.env`-файле установлены параметры подключения к БД:
 
-## Code of Conduct
+```
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=test
+DB_USERNAME=root
+DB_PASSWORD=root
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Для создания таблиц и внесения тестовых данных запустите следующую команду:
 
-## Security Vulnerabilities
+```
+php artisan migrate:fresh —seed
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Запустите сервер
 
-## License
+```
+php aritsan serve
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Для получения real-time уведомлений (напоминания для задач и новые сообщения от клиентов):
+
+```
+php artisan schedule:work
+php artisan websockets:serve
+```
+
+Чтобы иметь возможность переписываться с клиентом, добавьте API-токен своего Telegram-бота в `.env`-файл
+
+```
+TELEGRAM_BOT_TOKEN=your_token
+```
+
+и запустите команду
+
+```
+php artisan telebot:polling
+```
+
+## Возможности системы
+
+### Аутентификация
+
+Вход в систему осуществляется через email и пароль. Самостоятельная регистрация пользователя не предусмотрена.
+
+### Авторизация
+
+Ограничение возможностей пользователя в соответствии с назначенными ему [ролями](#пользовательские-роли).
+
+### Пользовательские роли
+
+По умолчанию предусмотрены две роли: *администратор* и *менеджер*. Ниже перечислены действия в системе, требующие авторизации, и привилегии базовых ролей.
+
+| Действие                            | Менеджер | Администратор |
+|-------------------------------------|:--------:|:-------------:|
+| Создать/изменить/удалить воронку    |     -    |       +       |
+| Создать клиента                     |     +    |       +       |
+| Создать/изменить/удалить сотрудника |     -    |       +       |
+| Создать/изменить/удалить роль       |     -    |       +       |
+| Создать задачу                      |     +    |       +       |
+| Назначить исполнителя задачи        |     -    |       +       |
+| Добавить сделку                     |     +    |       +       |
+| Изменить любую сделку               |     -    |       +       |
+
+
+Можно как добавлять новые роли, так и редактировать существующие (однако набор доступных привилегий в системе остается неизменным).
+
+### Клиенты
+
+Внесение клиентов в систему осуществляется двумя способами: ручной ввод и принятие входящего лида. Первый способ подразумевает заполнение полей формы создания клиента:
+
+- ФИО (обязательно)
+- Номер телефона
+- Email
+
+Во время принятия лида автоматически создается запись о клиенте с полем ФИО, заполненным именем пользователя Telegram.
+
+*Менеджер* может изменить запись о клиенте только в том случае, если за ним закреплены задачи или сделки, в которых фигурирует данный клиент.
+
+### Сотрудники
+
+Сущность сотрудника имеет следующие поля:
+
+- ФИО
+- Роли (0 и более)
+- Должность
+- Номер телефона
+- Email
+- Пароль
+
+При внесении в систему нового сотрудника ему по умолчанию назначается роль *менеджер*.
+
+### Задачи
+
+Сущность задачи имеет следующие поля:
+
+- Название
+- Описание
+- Кто назначил
+- Исполнитель
+- Клиент
+- Сделка
+- Крайний срок
+- Напоминание
+- Приоритет
+
+По умолчанию *менеджер* видит только назначенные ему задачи. При добавлении задачи он не может назначить исполнителя.
+*Менеджер* может редактировать и удалять только созданные им задачи.
+
+В установленное время на экране появляется напоминание в виде тоста.
+
+### Сделки
+
+Сущность сделки имеет следующие поля:
+
+- Название
+- Ответственный
+- Клиент
+- Воронка
+- Этап воронки
+- Сумма
+- Дата закрытия
+
+К сделке можно добавить кастомные поля.
+
+Для редактирования, помимо кастомных, доступны стандартные поля: название, воронка, этап воронки, сумма.
+
+К сделке можно прикрепить только одного сотрудника.
+
+Как и при добавлении задачи, *менеджер* не может назначить ответственного за сделку.
+*Менеджер* может редактировать и удалять только закрепленные за ним сделки.
+
+В карточке сделки отображаются связанные задачи. Их можно помечать выполненными и удалять, а также просматривать подробную информацию (описание, крайний срок и т.д.). Также в карточке сделки расположен чат с клиентом (для его работы необходимо настроить [интеграцию](#интеграция-с-telegram)). При получении нового сообщения на экране появляется тост с уведомлением.
+
+### Воронки
+
+В системе предусмотрена стандартная демо-воронка, состоящая из следующих этапов:
+
+- Лид
+- Потребность выявлена
+- Договор и счет отправлены
+- Счет оплачен
+
+Любая воронка по умолчанию имеет этапы “успешно реализовано” и “закрыто и не реализовано”. Перемещенная на один из этих этапов сделка считается закрытой.
+
+### Аналитика
+
+В системе предусмотрен небольшой модуль аналитики, состоящий из разделов “воронки” и “менеджеры”. 
+
+В разделе “воронки” доступна информация о движении сделок по этапам выбранной воронки, а также кол-во задач и сделок в работе, кол-во отказов и просроченных задач.
+
+В разделе “менеджеры” отражены следующие параметры:
+
+- закрытые сделки
+- уникальные клиенты
+- отказы
+- средний чек
+
+Можно выбрать любой временной период для анализа (минимум - сутки).
+
+### Интеграция с Telegram
+
+Представляет собой получение и отправку сообщений посредством бота.
+
+Сообщение, отправленное боту, попадает во вкладку “входящие лиды”. *Менеджер* может отправлять сообщения через чат, принять или отклонить лид. При принятии лида автоматически создаётся клиент с именем, указанным в Telegram-аккаунте. Поскольку теперь в системе содержится запись о клиенте, дальнейшая переписка не будет отображаться во вкладке “входящие лиды”.
